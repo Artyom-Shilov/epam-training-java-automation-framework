@@ -5,19 +5,19 @@ public enum CommittedUsageVariants {
     THREE_YEARS("3 Years", "select_option_120"),
     ONE_YEAR("1 Year", "select_option_119");
 
-    private String textValue;
-    private String optionId;
+    private String usageDurationTextValue;
+    private String usageDurationOptionId;
 
     CommittedUsageVariants(String value, String selectOptionId) {
-        this.textValue = value;
-        this.optionId = selectOptionId;
+        this.usageDurationTextValue = value;
+        this.usageDurationOptionId = selectOptionId;
     }
 
-    public String getTextValue() {
-        return textValue;
+    public String getUsageDurationTextValue() {
+        return usageDurationTextValue;
     }
 
-    public String getOptionId() {
-        return optionId;
+    public String getUsageDurationOptionId() {
+        return usageDurationOptionId;
     }
 }

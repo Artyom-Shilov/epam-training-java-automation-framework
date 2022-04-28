@@ -16,13 +16,13 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//section[@id = 'gc-wrapper']//a[text() = 'Next']")
     private WebElement linkNext;
 
+    private String xpathForLinkAccordingToSearchTermBlank = "//div[@id = '___gcse_0']//div[@class = 'gs-title']/a/b[text() = '%s']";
+
+
     public SearchPage(WebDriver driver, String searchTerm) {
         super(driver);
         this.searchTerm = searchTerm;
-    }
-
-    private String formXpathForLinkAccordingToSearchTerm() {
-        return String.format("//div[@id = '___gcse_0']//div[@class = 'gs-title']/a/b[text() = '%s']", searchTerm);
+        xpathForLinkAccordingToSearchTermBlank = String.format(xpathForLinkAccordingToSearchTermBlank, searchTerm);
     }
 
     public void openPageAccordingToSearchTermCarefully() {
@@ -31,7 +31,7 @@ public class SearchPage extends BasePage {
                     @Override
                     public Boolean apply(WebDriver driver) {
                         try {
-                            if (driver.findElement(By.xpath(SearchPage.this.formXpathForLinkAccordingToSearchTerm()))
+                            if (driver.findElement(By.xpath(xpathForLinkAccordingToSearchTermBlank))
                                     .isDisplayed()) {
                                 return true;
                             }
@@ -46,6 +46,6 @@ public class SearchPage extends BasePage {
     }
 
     public void openPageAccordingToSearchTerm() {
-        waiting.waitForClickableCondition(formXpathForLinkAccordingToSearchTerm()).click();
+        waiting.waitForClickableCondition(xpathForLinkAccordingToSearchTermBlank).click();
     }
 }

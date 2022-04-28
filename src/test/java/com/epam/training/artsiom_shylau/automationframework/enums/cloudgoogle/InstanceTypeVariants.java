@@ -4,25 +4,25 @@ public enum InstanceTypeVariants {
 
     N1_STANDART_8("n1-standard-8", "select_option_221", "select_option_427");
 
-    private String textValue;
-    private String seriesSelectOptionId;
-    private String machineTypeSelectOptionId;
+    private String machineTypeTextValue;
+    private String seriesOptionId;
+    private String machineTypeOptionId;
 
     InstanceTypeVariants(String instanceType, String seriesId, String machineTypeId) {
-        this.textValue = instanceType;
-        this.seriesSelectOptionId = seriesId;
-        this.machineTypeSelectOptionId = machineTypeId;
+        this.machineTypeTextValue = instanceType;
+        this.seriesOptionId = seriesId;
+        this.machineTypeOptionId = machineTypeId;
     }
 
-    public String getTextValue() {
-        return textValue;
+    public String getMachineTypeTextValue() {
+        return machineTypeTextValue;
     }
 
-    public String getSeriesSelectOptionId() {
-        return seriesSelectOptionId;
+    public String getSeriesOptionId() {
+        return seriesOptionId;
     }
 
-    public String getMachineTypeSelectOptionId() {
-        return machineTypeSelectOptionId;
+    public String getMachineTypeOptionId() {
+        return machineTypeOptionId;
     }
 }

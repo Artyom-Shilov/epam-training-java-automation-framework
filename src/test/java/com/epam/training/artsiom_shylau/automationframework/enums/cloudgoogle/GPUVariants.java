@@ -2,21 +2,23 @@ package com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle;
 
 public enum GPUVariants {
 
-    TESLA_V100_1("select_option_467", "select_option_471");
+    //"select_option_471"
 
-    private String typeOfGPUSelectOptionId;
-    private String numberOfGpuSelectOptionId;
+    TESLA_V100("TESLA V100", "select_option_467");
 
-    GPUVariants(String typeOfGPUId, String numberOfGpuId) {
-        this.typeOfGPUSelectOptionId = typeOfGPUId;
-        this.numberOfGpuSelectOptionId = numberOfGpuId;
+    private String typeOfGPUTextValue;
+    private String typeOfGPUOptionId;
+
+    GPUVariants(String typeOfGPUTextValue, String typeOfGPUSelectOptionId) {
+        this.typeOfGPUTextValue = typeOfGPUTextValue;
+        this.typeOfGPUOptionId = typeOfGPUSelectOptionId;
     }
 
-    public String getTypeOfGPUSelectOptionId() {
-        return typeOfGPUSelectOptionId;
+    public String getTypeOfGPUTextValue() {
+        return typeOfGPUTextValue;
     }
 
-    public String getNumberOfGpuSelectOptionId() {
-        return numberOfGpuSelectOptionId;
+    public String getTypeOfGPUOptionId() {
+        return typeOfGPUOptionId;
     }
 }

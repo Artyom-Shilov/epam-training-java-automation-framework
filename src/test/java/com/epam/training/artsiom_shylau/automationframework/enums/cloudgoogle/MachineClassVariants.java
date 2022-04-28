@@ -2,22 +2,16 @@ package com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle;
 
 public enum MachineClassVariants {
 
-    REGULAR("regular", "select_option_96"),
-    PREEMPTIBLE("preemptible", "select_option_97");
+    REGULAR("select_option_96"),
+    PREEMPTIBLE("select_option_97");
 
-    private String textValue;
-    private String optionId;
+    private String machineClassOptionId;
 
-    MachineClassVariants(String value, String id) {
-        this.textValue = value;
-        this.optionId = id;
+    MachineClassVariants(String id) {
+        this.machineClassOptionId = id;
     }
 
-    public String getTextValue() {
-        return textValue;
-    }
-
-    public String getOptionId() {
-        return optionId;
+    public String getMachineClassOptionId() {
+        return machineClassOptionId;
     }
 }
