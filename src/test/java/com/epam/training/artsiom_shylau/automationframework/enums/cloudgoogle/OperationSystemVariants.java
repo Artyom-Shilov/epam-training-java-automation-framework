@@ -1,5 +1,10 @@
 package com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle;
 
+import com.epam.training.artsiom_shylau.automationframework.exceptions.VariantSelectionException;
+import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
+
+import java.util.Arrays;
+
 public enum OperationSystemVariants {
 
     FREE("Free: Debian, CentOS, CoreOS, Ubuntu or BYOL (Bring Your Own License)","select_option_83"),
@@ -17,15 +22,15 @@ public enum OperationSystemVariants {
         return operationSystemTextValue;
     }
 
-    public void setOperationSystemTextValue(String operationSystemTextValue) {
-        this.operationSystemTextValue = operationSystemTextValue;
-    }
-
     public String getOperationSystemOptionId() {
         return operationSystemOptionId;
     }
 
-    public void setOperationSystemOptionId(String operationSystemOptionId) {
-        this.operationSystemOptionId = operationSystemOptionId;
+    public static String getOperationSystemOptionIdByTextValue(String textValue) {
+        return Arrays.stream(OperationSystemVariants.values())
+                .filter(v -> v.getOperationSystemTextValue().equalsIgnoreCase(textValue))
+                .findFirst()
+                .orElseThrow(() -> new VariantSelectionException(StringOperations.formMessageForVariantSelectionException(textValue)))
+                .getOperationSystemOptionId();
     }
 }

@@ -1,5 +1,10 @@
 package com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle;
 
+import com.epam.training.artsiom_shylau.automationframework.exceptions.VariantSelectionException;
+import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
+
+import java.util.Arrays;
+
 public enum CommittedUsageVariants {
 
     THREE_YEARS("3 Years", "select_option_120"),
@@ -19,5 +24,13 @@ public enum CommittedUsageVariants {
 
     public String getUsageDurationOptionId() {
         return usageDurationOptionId;
+    }
+
+    public static String getUsageDurationOptionIdByTextValue(String textValue) {
+        return Arrays.stream(CommittedUsageVariants.values())
+                .filter(v -> v.getUsageDurationTextValue().equalsIgnoreCase(textValue))
+                .findFirst()
+                .orElseThrow(() -> new VariantSelectionException(StringOperations.formMessageForVariantSelectionException(textValue)))
+                .getUsageDurationOptionId();
     }
 }

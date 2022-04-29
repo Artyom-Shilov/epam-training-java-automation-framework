@@ -1,5 +1,10 @@
 package com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle;
 
+import com.epam.training.artsiom_shylau.automationframework.exceptions.VariantSelectionException;
+import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
+
+import java.util.Arrays;
+
 public enum GPUVariants {
 
     //"select_option_471"
@@ -20,5 +25,13 @@ public enum GPUVariants {
 
     public String getTypeOfGPUOptionId() {
         return typeOfGPUOptionId;
+    }
+
+    public static String getTypeOfGPUOptionIdByTextValue(String textValue) {
+        return Arrays.stream(GPUVariants.values())
+                .filter(v -> v.getTypeOfGPUTextValue().equalsIgnoreCase(textValue))
+                .findFirst()
+                .orElseThrow(() -> new VariantSelectionException(StringOperations.formMessageForVariantSelectionException(textValue)))
+                .getTypeOfGPUOptionId();
     }
 }
