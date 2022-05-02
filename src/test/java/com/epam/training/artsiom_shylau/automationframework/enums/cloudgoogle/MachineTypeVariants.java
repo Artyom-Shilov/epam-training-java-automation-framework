@@ -5,15 +5,17 @@ import com.epam.training.artsiom_shylau.automationframework.util.StringOperation
 
 import java.util.Arrays;
 
-public enum InstanceTypeVariants {
+public enum MachineTypeVariants {
 
-    N1_STANDART_8("n1-standard-8", "select_option_221", "select_option_427");
+    N1_STANDART_8("n1-standard-8", "select_option_221", "select_option_427"),
+    N1_HIGHMEM_4("n1-highmem-4", "select_option_221", "select_option_433"),
+    N2_STANDART_16("n2-standard-16", "select_option_222", "select_option_425");
 
     private String machineTypeTextValue;
     private String seriesOptionId;
     private String machineTypeOptionId;
 
-    InstanceTypeVariants(String instanceType, String seriesId, String machineTypeId) {
+    MachineTypeVariants(String instanceType, String seriesId, String machineTypeId) {
         this.machineTypeTextValue = instanceType;
         this.seriesOptionId = seriesId;
         this.machineTypeOptionId = machineTypeId;
@@ -31,8 +33,8 @@ public enum InstanceTypeVariants {
         return machineTypeOptionId;
     }
 
-    public static InstanceTypeVariants getEnumElementByTextValue(String textValue) {
-        return Arrays.stream(InstanceTypeVariants.values())
+    public static MachineTypeVariants getEnumElementByTextValue(String textValue) throws VariantSelectionException {
+        return Arrays.stream(MachineTypeVariants.values())
                 .filter(v -> v.getMachineTypeTextValue().equalsIgnoreCase(textValue))
                 .findFirst()
                 .orElseThrow(() -> new VariantSelectionException(StringOperations.formMessageForVariantSelectionException(textValue)));

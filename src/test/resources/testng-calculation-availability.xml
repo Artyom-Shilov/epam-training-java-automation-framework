@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Calculation availability" verbose="1" >
+    <test name="Calculation availability">
+        <classes>
+            <class name="com.epam.training.artsiom_shylau.automationframework.test.CloudCalculatorTest">
+                <methods>
+                    <include name="shouldNotBeAbleToCalculatePriceWhenNumberOfInstancesIsNotPositive"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

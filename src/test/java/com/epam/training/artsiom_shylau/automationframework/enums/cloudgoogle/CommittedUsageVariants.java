@@ -26,7 +26,7 @@ public enum CommittedUsageVariants {
         return usageDurationOptionId;
     }
 
-    public static String getUsageDurationOptionIdByTextValue(String textValue) {
+    public static String getUsageDurationOptionIdByTextValue(String textValue) throws VariantSelectionException {
         return Arrays.stream(CommittedUsageVariants.values())
                 .filter(v -> v.getUsageDurationTextValue().equalsIgnoreCase(textValue))
                 .findFirst()

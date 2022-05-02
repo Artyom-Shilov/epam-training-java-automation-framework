@@ -1,25 +1,29 @@
 package com.epam.training.artsiom_shylau.automationframework.pages.yopmail;
 
+import com.epam.training.artsiom_shylau.automationframework.model.Letter;
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
-import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.SearchPage;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
-import static org.apache.log4j.Level.INFO;
-
 public class MailBoxPage extends BasePage {
 
-    private Logger logger = Logger.getLogger(SearchPage.class);
+    private final Logger logger = LogManager.getRootLogger();
 
-    private static final String TOTAL_COST_SUBSTRING_START = "Total *:\n";
-    private static final String TOTAL_COST_SUBSTRING_END = "\n\n* The estimated";
+    private static final int MAIL_NUMBER_VALUE_INDEX = 0;
 
     @FindBy(xpath = "//*[@id='mail']/pre")
     private WebElement currentLetterTextElement;
+
+    @FindBy(xpath = "//div[@class = 'ellipsis nw b f18']")
+    private WebElement currentLetterThemeElement;
+
+    @FindBy(xpath = "//span[@class = 'ellipsis b']")
+    private WebElement currentLetterSenderElement;
 
     @FindBy(xpath = "//button/span[text() = 'Text']")
     private WebElement showTextVersionOfLetterButton;
@@ -37,27 +41,24 @@ public class MailBoxPage extends BasePage {
         super(driver);
     }
 
-    public MailBoxPage refreshMailBox() {
-       waiting.getWebDriverWaitObject().ignoring(WebDriverException.class).until(
-               (ExpectedCondition<Boolean>) driver -> {
-           refreshButton.click();
-           logger.log(INFO, "refresh button has been clicked");
-           return Integer.parseInt(
-                   numberOfMailsElement.getText().split(" ")[0]) > 0;
-       });
+    public MailBoxPage refreshMailBoxUntilLetterReceiving() {
+        waiting.getWebDriverWaitObject().ignoring(WebDriverException.class).until(
+                (ExpectedCondition<Boolean>) driver -> {
+                    refreshButton.click();
+                    logger.info("Refresh mail box button has been clicked");
+                    return Integer.parseInt(numberOfMailsElement.getText().split(" ")[MAIL_NUMBER_VALUE_INDEX]) > 0;
+                });
+        logger.info("Letter has been received");
         return this;
     }
 
-    public String readCurrentLetter(){
+    public Letter getCurrentLetter() {
         waiting.waitForFrameAvailabilityAndSwitchToIt(ifmailFrame);
         waiting.waitForTargetFrameDetachedSafetyAndClick(showTextVersionOfLetterButton);
-        return waiting.waitForVisibleCondition(currentLetterTextElement).getText();
-    }
-
-    public String readTotalCost() {
-        String text = readCurrentLetter();
-        return text.substring(
-                text.indexOf(TOTAL_COST_SUBSTRING_START) + TOTAL_COST_SUBSTRING_START.length(),
-                text.indexOf(TOTAL_COST_SUBSTRING_END));
+        return new Letter(
+                waiting.waitForVisibleCondition(currentLetterTextElement).getText(),
+                waiting.waitForVisibleCondition(currentLetterThemeElement).getText(),
+                waiting.waitForVisibleCondition(currentLetterSenderElement).getText()
+        );
     }
 }

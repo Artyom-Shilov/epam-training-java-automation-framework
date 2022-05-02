@@ -15,9 +15,9 @@ public class VirtualMachineCreator {
 
     public static VirtualMachine createVirtualMachineWithDataFromProperty() {
         return new VirtualMachine(
-                Integer.parseInt(MACHINE_NUMBER_KEY),
-                TestDataReader.getTestData(MACHINE_TYPE_KEY),
+                Integer.parseInt(TestDataReader.getTestData(MACHINE_NUMBER_KEY)),
                 TestDataReader.getTestData(MACHINE_CLASS_KEY),
+                TestDataReader.getTestData(MACHINE_TYPE_KEY),
                 TestDataReader.getTestData(MACHINE_OS_KEY)
         );
     }

@@ -1,6 +1,6 @@
 package com.epam.training.artsiom_shylau.automationframework.exceptions;
 
-public class VariantSelectionException extends RuntimeException {
+public class VariantSelectionException extends Exception {
 
     public VariantSelectionException() {
     }

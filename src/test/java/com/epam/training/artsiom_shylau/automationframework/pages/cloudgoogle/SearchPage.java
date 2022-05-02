@@ -1,15 +1,15 @@
 package com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle;
 
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class SearchPage extends BasePage {
 
-    private final Logger logger = Logger.getLogger(SearchPage.class);
+    private final Logger logger = LogManager.getRootLogger();
 
     private final String searchTerm;
 
@@ -37,7 +37,7 @@ public class SearchPage extends BasePage {
                             }
                         } catch (WebDriverException e) {
                             linkNext.click();
-                            logger.log(Level.INFO, "link 'Next' has been clicked");
+                            logger.info("Link 'Next' has been clicked during search");
                         }
                         return false;
                     }
@@ -47,5 +47,6 @@ public class SearchPage extends BasePage {
 
     public void openPageAccordingToSearchTerm() {
         waiting.waitForClickableCondition(xpathForLinkAccordingToSearchTermBlank).click();
+        logger.info("Link associated with search term " + searchTerm + " has been clicked");
     }
 }

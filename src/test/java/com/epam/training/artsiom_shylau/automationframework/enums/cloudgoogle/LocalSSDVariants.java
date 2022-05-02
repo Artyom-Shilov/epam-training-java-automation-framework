@@ -7,7 +7,8 @@ import java.util.Arrays;
 
 public enum LocalSSDVariants {
 
-    SSD_2_375_GB("2x375","select_option_448");
+    SSD_2_375_GB("2x375","select_option_448"),
+    SSD_4_375_GB("4x375", "select_option_450");
 
     private String capacityTextValue;
     private String capacityOptionId;
@@ -25,7 +26,7 @@ public enum LocalSSDVariants {
         return capacityOptionId;
     }
 
-    public static String getCapacityOptionIdByTextValue(String textValue) {
+    public static String getCapacityOptionIdByTextValue(String textValue) throws VariantSelectionException {
         return Arrays.stream(LocalSSDVariants.values())
                 .filter(v -> v.getCapacityTextValue().equalsIgnoreCase(textValue))
                 .findFirst()

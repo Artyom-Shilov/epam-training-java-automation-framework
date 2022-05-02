@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Unknown options">
+    <test name="Selection of unknown options">
+        <classes>
+            <class name="com.epam.training.artsiom_shylau.automationframework.test.CloudCalculatorTest">
+                <methods>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenOperationSystemOptionIsUnknown"/>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenDatacenterLocationOptionIsUnknown"/>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenGPUTypeOptionIsUnknown()"/>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenLocalSSDOptionIsUnknown"/>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenInstanceTypeOptionIsUnknown"/>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenMachineClassOptionIsUnknown"/>
+                    <include name="shouldThrowExceptionForPriceCalculationWhenUsageDurationOptionIsUnknown"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

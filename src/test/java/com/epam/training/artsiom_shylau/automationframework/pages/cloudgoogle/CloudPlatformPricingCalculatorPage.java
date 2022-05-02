@@ -4,14 +4,15 @@ import com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle.*;
 import com.epam.training.artsiom_shylau.automationframework.exceptions.VariantSelectionException;
 import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
-import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.Arrays;
-
 public class CloudPlatformPricingCalculatorPage extends BasePage {
+
+    private final Logger logger = LogManager.getRootLogger();
 
     @FindBy(xpath = "//button[@class = 'devsite-snackbar-action']")
     private WebElement cookieNotificationOkButton;
@@ -79,83 +80,89 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
         waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
         waiting.waitForClickableCondition(computeEngineSectionElement).click();
+        logger.info("Compute engine section has been chosen");
         return this;
     }
 
     public CloudPlatformPricingCalculatorPage inputNumberOfInstances(VirtualMachine machine) {
-        waiting.waitForClickableCondition(numberOfInstancesInput).sendKeys(
-                String.valueOf(machine.getNumberOfInstances()));
+        waiting.waitForClickableCondition(numberOfInstancesInput).sendKeys(String.valueOf(machine.getNumberOfInstances()));
+        logger.info("Number of instances has been entered");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) {
+    public CloudPlatformPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) throws VariantSelectionException {
+        String optionId = OperationSystemVariants.getOperationSystemOptionIdByTextValue(machine.getOperationSystem());
         waiting.waitForClickableCondition(operationSystemSelectionElement).click();
-        waiting.waitForClickableConditionById(OperationSystemVariants.getOperationSystemOptionIdByTextValue(machine.getOperationSystem())).click();
+        waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Operating system variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseMachineClass(VirtualMachine machine) {
-        String machineClass = machine.getMachineClass();
+    public CloudPlatformPricingCalculatorPage chooseMachineClass(VirtualMachine machine) throws VariantSelectionException {
+        String optionId = MachineClassVariants.getMachineClassOptionIdByTextValue(machine.getMachineClass());
         waiting.waitForClickableCondition(machineClassSelectionElement).click();
-        try {
-            waiting.waitForClickableConditionById(
-                    MachineClassVariants.valueOf(machineClass.toUpperCase()).getMachineClassOptionId()).click();
-        } catch (IllegalArgumentException e) {
-            throw new VariantSelectionException(StringOperations.formMessageForVariantSelectionException(machineClass), e);
-        }
+        waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Machine class variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseInstanceType(VirtualMachine machine) {
-        InstanceTypeVariants matchedVariant = InstanceTypeVariants.getEnumElementByTextValue(machine.getMachineType());
+    public CloudPlatformPricingCalculatorPage chooseInstanceType(VirtualMachine machine) throws VariantSelectionException {
+        MachineTypeVariants matchedVariant = MachineTypeVariants.getEnumElementByTextValue(machine.getMachineType());
         waiting.waitForClickableCondition(seriesSelectionElement).click();
         waiting.waitForClickableConditionById(matchedVariant.getSeriesOptionId()).click();
         waiting.waitForClickableCondition(machineTypeSelectionElement).click();
         waiting.waitForClickableConditionById(matchedVariant.getMachineTypeOptionId()).click();
+        logger.info("Instance type variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage addGPU(GPU graphicsProcessor) {
+    public CloudPlatformPricingCalculatorPage addGPU(GPU graphicsProcessor) throws VariantSelectionException {
+        String typeOfGpuOptionId = GPUVariants.getTypeOfGPUOptionIdByTextValue(graphicsProcessor.getTypeOfGPU());
         waiting.waitForClickableCondition(addGPUCheckbox).click();
         waiting.waitForClickableCondition(gpuTypeSelectionElement).click();
-        waiting.waitForClickableConditionById(
-                GPUVariants.getTypeOfGPUOptionIdByTextValue(graphicsProcessor.getTypeOfGPU())).click();
+        waiting.waitForClickableConditionById(typeOfGpuOptionId).click();
         waiting.waitForClickableCondition(gpuNumberSelectionElement).click();
         waiting.waitForClickableCondition(String.format(
                 blankXpathForGPUNumberVariant, graphicsProcessor.getNumberOfGPU())).click();
+        logger.info("Type of GPU variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) {
+    public CloudPlatformPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) throws VariantSelectionException {
+        String optionId = LocalSSDVariants.getCapacityOptionIdByTextValue(localSSD.getCapacity());
         waiting.waitForClickableCondition(localSSDSelectionElement).click();
-        waiting.waitForClickableConditionById(
-                LocalSSDVariants.getCapacityOptionIdByTextValue(localSSD.getCapacity())).click();
+        waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Local SSD variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) {
-        String location = datacenter.getLocation();
+    public CloudPlatformPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) throws VariantSelectionException {
+        String optionId = DatacenterLocationVariants.getDatacenterLocationOptionIdByTextValue(datacenter.getLocation());
         waiting.waitForClickableCondition(datacenterLocationSelectionElement).click();
-        try {
-            waiting.waitForClickableConditionById(
-                    DatacenterLocationVariants.valueOf(location.toUpperCase()).getDatacenterLocationOptionId()).click();
-        } catch (IllegalArgumentException e) {
-            throw new VariantSelectionException(StringOperations.formMessageForVariantSelectionException(location));
-        }
+        waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Datacenter variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) {
+    public CloudPlatformPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) throws VariantSelectionException {
+        String optionId = CommittedUsageVariants.getUsageDurationOptionIdByTextValue(usageTerm.getDuration());
         waiting.waitForClickableCondition(committedUsageSelectionElement).click();
-        waiting.waitForClickableConditionById(
-                CommittedUsageVariants.getUsageDurationOptionIdByTextValue(usageTerm.getDuration())).click();
+        waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Commitment usage variant has been chosen");
         return this;
     }
-
 
     public EstimatePage addToEstimate() {
         waiting.waitForClickableCondition(addToEstimateButton).click();
+        logger.info("Estimate button has been clicked");
         return new EstimatePage(driver);
     }
 
+    public boolean isReadyToCalculatePrice(){
+       return waiting.waitForVisibleCondition(addToEstimateButton).getAttribute("disabled") == null;
+    }
+
+    public boolean isPossibleToChooseGPU() {
+        return !Boolean.parseBoolean(waiting.waitForVisibleCondition(addGPUCheckbox).getAttribute("aria-disabled"));
+    }
 }

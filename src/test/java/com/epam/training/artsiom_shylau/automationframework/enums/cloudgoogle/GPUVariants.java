@@ -7,9 +7,8 @@ import java.util.Arrays;
 
 public enum GPUVariants {
 
-    //"select_option_471"
-
-    TESLA_V100("TESLA V100", "select_option_467");
+    TESLA_V100("NVIDIA Tesla V100", "select_option_467"),
+    TESLA_P100("NVIDIA Tesla P100", "select_option_465");
 
     private String typeOfGPUTextValue;
     private String typeOfGPUOptionId;
@@ -27,7 +26,7 @@ public enum GPUVariants {
         return typeOfGPUOptionId;
     }
 
-    public static String getTypeOfGPUOptionIdByTextValue(String textValue) {
+    public static String getTypeOfGPUOptionIdByTextValue(String textValue) throws VariantSelectionException {
         return Arrays.stream(GPUVariants.values())
                 .filter(v -> v.getTypeOfGPUTextValue().equalsIgnoreCase(textValue))
                 .findFirst()

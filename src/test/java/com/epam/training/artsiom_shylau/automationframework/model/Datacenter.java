@@ -31,5 +31,10 @@ public class Datacenter {
         return Objects.hash(location);
     }
 
-
+    @Override
+    public String toString() {
+        return "Datacenter{" +
+                "location='" + location + '\'' +
+                '}';
+    }
 }

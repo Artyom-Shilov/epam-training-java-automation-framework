@@ -26,7 +26,7 @@ public enum OperationSystemVariants {
         return operationSystemOptionId;
     }
 
-    public static String getOperationSystemOptionIdByTextValue(String textValue) {
+    public static String getOperationSystemOptionIdByTextValue(String textValue) throws VariantSelectionException {
         return Arrays.stream(OperationSystemVariants.values())
                 .filter(v -> v.getOperationSystemTextValue().equalsIgnoreCase(textValue))
                 .findFirst()

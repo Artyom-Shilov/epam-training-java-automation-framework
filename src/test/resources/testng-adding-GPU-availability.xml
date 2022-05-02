@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Adding GPU availability" verbose="1" >
+    <test name="Adding GPU availability">
+        <classes>
+            <class name="com.epam.training.artsiom_shylau.automationframework.test.CloudCalculatorTest">
+                <methods>
+                    <include name="shouldNotBeAbleToChooseGPUWhenVirtualWhenVirtualMachineSeriesIsNotN1"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

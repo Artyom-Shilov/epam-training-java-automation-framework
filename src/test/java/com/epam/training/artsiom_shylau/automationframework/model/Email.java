@@ -1,0 +1,40 @@
+package com.epam.training.artsiom_shylau.automationframework.model;
+
+import java.util.Objects;
+
+public class Email {
+
+    private String address;
+
+    public Email(String address) {
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email email = (Email) o;
+        return Objects.equals(address, email.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address);
+    }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "address='" + address + '\'' +
+                '}';
+    }
+}

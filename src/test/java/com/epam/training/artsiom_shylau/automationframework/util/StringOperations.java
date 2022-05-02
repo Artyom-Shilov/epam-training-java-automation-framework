@@ -8,4 +8,12 @@ public class StringOperations {
         return option + ": variant is unknown";
     }
 
+    public static String getSubstring(String text, String from, String to) {
+        return text.substring(text.indexOf(from) + from.length(), text.indexOf(to));
+    }
+
+    public static String getSubstring(String text, String from) {
+        return text.substring(text.indexOf(from) + from.length());
+    }
+
 }
