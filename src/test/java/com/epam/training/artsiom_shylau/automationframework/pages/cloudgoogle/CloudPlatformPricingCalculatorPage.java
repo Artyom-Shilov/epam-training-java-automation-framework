@@ -7,6 +7,7 @@ import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -216,6 +217,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     public CloudPlatformPricingCalculatorPage chooseCommittedUsageByText(UsageTerm usageTerm) throws VariantSelectionException {
         String optionId = CommittedUsageVariants.getUsageDurationOptionIdByTextValue(usageTerm.getDuration());
         waiting.waitForClickableCondition(committedUsageSelectionElement).click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", committedUsageSelectionElement);
         driver.findElement(By.xpath(formXpathForVariantSelectionByText(usageTerm.getDuration()))).click();
       //  waiting.waitForClickableCondition(formXpathForVariantSelectionByText(usageTerm.getDuration())).click();
         logger.info("Commitment usage variant has been chosen");
