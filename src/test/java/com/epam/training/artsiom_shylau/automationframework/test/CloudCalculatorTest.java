@@ -45,11 +45,11 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .activateComputeEngineSection()
                 .inputNumberOfInstances(virtualMachine)
                 .chooseOperatingSystemByVariantText(virtualMachine)
-                .chooseMachineClassByVariantText(virtualMachine)
-                .chooseInstanceTypeByVariantText(virtualMachine)
-                .addGPUByGPYTypeText(graphicProcessor)
-                .chooseLocalSSDByText(localSSD)
-                .chooseDatacenterLocationByText(datacenter)
+                //.chooseMachineClassByVariantText(virtualMachine)
+                //.chooseInstanceTypeByVariantText(virtualMachine)
+               // .addGPUByGPYTypeText(graphicProcessor)
+               // .chooseLocalSSDByText(localSSD)
+               // .chooseDatacenterLocationByText(datacenter)
                 .chooseCommittedUsageByText(usageTerm)
                 .addToEstimate();
     }

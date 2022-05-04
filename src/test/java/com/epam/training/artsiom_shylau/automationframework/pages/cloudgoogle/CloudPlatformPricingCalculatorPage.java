@@ -131,6 +131,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     public CloudPlatformPricingCalculatorPage chooseInstanceTypeByVariantId(VirtualMachine machine) throws VariantSelectionException {
         MachineTypeVariants matchedVariant = MachineTypeVariants.getEnumElementByTextValue(machine.getMachineType());
         waiting.waitForClickableCondition(seriesSelectionElement).click();
+        logger.info("series selection");
         waiting.waitForClickableConditionById(matchedVariant.getSeriesOptionId()).click();
         waiting.waitForClickableCondition(machineTypeSelectionElement).click();
         waiting.waitForClickableConditionById(matchedVariant.getMachineTypeOptionId()).click();
