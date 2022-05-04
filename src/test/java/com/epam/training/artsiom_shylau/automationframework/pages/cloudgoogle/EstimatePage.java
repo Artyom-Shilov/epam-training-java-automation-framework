@@ -95,6 +95,13 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
         return this;
     }
 
+    public EstimatePage inputAddressAndSendEmail(Email email) {
+        inputAddress(email);
+        sendEmailButton.click();
+        logger.info("Send email button has been clicked");
+        return this;
+    }
+
     public EstimatePage inputAddress(Email email) {
         driver.switchTo().defaultContent();
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);

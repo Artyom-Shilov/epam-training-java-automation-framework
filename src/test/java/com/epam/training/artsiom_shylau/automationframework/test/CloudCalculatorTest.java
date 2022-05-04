@@ -77,10 +77,11 @@ public class CloudCalculatorTest extends CommonTestConditions {
 
         GeneratedAddressPage generatedAddressPage = new YopmailHomePage(driver)
                 .openInNewTab()
-                .generateMailAddress()
-                .copyGeneratedAddress();
+                .generateMailAddress();
 
-        estimatePage.switchToTabOfThisPage().pasteAddressAndSendEmail();
+        Email email = generatedAddressPage.getGeneratedEmail();
+
+        estimatePage.switchToTabOfThisPage().inputAddressAndSendEmail(email);
 
         Letter receivedLetter = generatedAddressPage
                 .switchToTabOfThisPage()
