@@ -34,7 +34,6 @@ public class CloudCalculatorTest extends CommonTestConditions {
     private void openCalculatorPage() {
         new GoogleCloudHomePage(driver)
                 .openPage()
-                .hideCookieNotification()
                 .searchForTerm("Google Cloud Pricing Calculator")
                 .openPageAccordingToSearchTerm();
     }
