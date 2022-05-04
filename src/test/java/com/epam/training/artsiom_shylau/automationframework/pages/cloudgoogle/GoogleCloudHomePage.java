@@ -22,6 +22,9 @@ public class GoogleCloudHomePage extends BasePage {
     @FindBy(xpath = "//button[@class = 'devsite-snackbar-action']")
     private WebElement cookieNotificationOkButton;
 
+    @FindBy(id = "suggestion-product-0")
+    private WebElement firstSuggestedPage;
+
     public GoogleCloudHomePage(WebDriver driver) {
         super(driver);
     }
@@ -43,5 +46,11 @@ public class GoogleCloudHomePage extends BasePage {
         waiting.waitForClickableCondition(allResultsButton).click();
         logger.info("Search for term" + searchTerm + " is processing");
         return new SearchPage(driver, searchTerm);
+    }
+
+    public void openFirstSuggestedPageAccordingToSearchTerm(String searchTerm) {
+        waiting.waitForClickableCondition(searchInputElement).sendKeys(searchTerm);
+        waiting.waitForClickableCondition(firstSuggestedPage);
+        logger.info("Link to the first suggested page associated with" + searchTerm + " has been clicked");
     }
 }
