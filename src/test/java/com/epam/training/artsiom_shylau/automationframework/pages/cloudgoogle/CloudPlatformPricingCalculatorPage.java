@@ -74,6 +74,8 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
 
     private final String blankXpathForVariantSelectionByText =  "//div[@class = 'md-select-menu-container md-active md-clickable']//div[contains(text(), '%s')]";
 
+    private final String blankXpathForDatacenterVariantSelectionByText =  "//div[@class = 'md-select-menu-container cpc-region-select md-active md-clickable']//div[contains(text(), '%s')]";
+
     public CloudPlatformPricingCalculatorPage(WebDriver driver) {
         super(driver);
     }
@@ -197,7 +199,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     public CloudPlatformPricingCalculatorPage chooseDatacenterLocationByText(Datacenter datacenter) throws VariantSelectionException {
         String optionId = DatacenterLocationVariants.getDatacenterLocationOptionIdByTextValue(datacenter.getLocation());
         waiting.waitForClickableCondition(datacenterLocationSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(datacenter.getLocation())).click();
+        waiting.waitForClickableCondition(String.format(blankXpathForDatacenterVariantSelectionByText, datacenter.getLocation())).click();
         logger.info("Datacenter variant has been chosen");
         return this;
     }
