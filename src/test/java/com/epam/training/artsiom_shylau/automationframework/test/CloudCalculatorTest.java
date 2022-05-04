@@ -60,12 +60,12 @@ public class CloudCalculatorTest extends CommonTestConditions {
         EstimatePage estimatePage = getEstimatePageAccordingToOptions();
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(virtualMachine.getMachineClass(), estimatePage.readVMClass());
-        softAssert.assertEquals(virtualMachine.getMachineType(), estimatePage.readInstanceType());
-        softAssert.assertEquals(localSSD.getCapacity(), estimatePage.readLocalSSD());
-        softAssert.assertEquals(datacenter.getLocation(), estimatePage.readRegion());
-        softAssert.assertEquals(usageTerm.getDuration(), estimatePage.readCommitmentTerm());
-        softAssert.assertEquals(usageTerm.getPrice(), estimatePage.readTotalCommitmentCost());
+        softAssert.assertTrue(virtualMachine.getMachineClass().equalsIgnoreCase(estimatePage.readVMClass()));
+        softAssert.assertTrue(virtualMachine.getMachineType().equalsIgnoreCase(estimatePage.readInstanceType()));
+        softAssert.assertTrue((localSSD.getCapacity().equalsIgnoreCase(estimatePage.readLocalSSD())));
+        softAssert.assertTrue(datacenter.getLocation().equalsIgnoreCase(estimatePage.readRegion()));
+        softAssert.assertTrue(usageTerm.getDuration().equalsIgnoreCase(estimatePage.readCommitmentTerm()));
+        softAssert.assertTrue(usageTerm.getPrice().equalsIgnoreCase(estimatePage.readTotalCommitmentCost()));
         softAssert.assertAll();
     }
 
@@ -80,7 +80,6 @@ public class CloudCalculatorTest extends CommonTestConditions {
 
         GeneratedAddressPage generatedAddressPage = new YopmailHomePage(driver)
                 .openInNewTab()
-                .hideCookieNotification()
                 .generateMailAddress()
                 .copyGeneratedAddress();
 
