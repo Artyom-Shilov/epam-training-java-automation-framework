@@ -81,6 +81,7 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
         driver.switchTo().defaultContent();
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
         waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
+        logger.info("on the email form, mail generated");
         waiting.waitForVisibleCondition(emailInputField).sendKeys(Keys.CONTROL, "v");
         waiting.waitForClickableCondition(sendEmailButton).click();
         logger.info("Send email button has been clicked");
