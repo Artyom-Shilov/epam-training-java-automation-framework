@@ -22,7 +22,7 @@ public class GoogleCloudHomePage extends BasePage {
     @FindBy(xpath = "//button[@class = 'devsite-snackbar-action']")
     private WebElement cookieNotificationOkButton;
 
-    @FindBy(id = "suggestion-product-0")
+    @FindBy(xpath = "//div[@id = 'suggestion-product-0']//a")
     private WebElement firstSuggestedPage;
 
     public GoogleCloudHomePage(WebDriver driver) {
