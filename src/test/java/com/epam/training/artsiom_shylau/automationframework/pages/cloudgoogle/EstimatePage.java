@@ -82,7 +82,6 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
         waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
         logger.info("on the email form, mail generated");
-        logger.info();
         waiting.waitForVisibleCondition(emailInputField).sendKeys(Keys.CONTROL, "v");
         logger.info("on the email form, mail input copied");
         waiting.waitForClickableCondition(sendEmailButton).click();
