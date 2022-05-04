@@ -4,7 +4,6 @@ import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -118,9 +117,7 @@ public class CloudPricingCalculatorPage extends BasePage {
     }
 
     public CloudPricingCalculatorPage chooseInstanceType(VirtualMachine machine) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", seriesSelectionElement);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", seriesSelectionElement);
-      //  waiting.waitForClickableCondition(seriesSelectionElement).click();
+        waiting.waitForClickableCondition(seriesSelectionElement).click();
         String machineType = machine.getMachineType();
         String machineSeries = machineType.substring(0, MACHINE_SERIES_SUBSTRING_END_INDEX).toUpperCase();
         waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machineSeries)).click();
