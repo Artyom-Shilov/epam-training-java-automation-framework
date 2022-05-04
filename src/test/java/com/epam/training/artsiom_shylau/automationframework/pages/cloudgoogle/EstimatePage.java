@@ -37,7 +37,7 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
     @FindBy(id = "email_quote")
     private WebElement emailEstimateButton;
 
-    @FindBy(id = "input_551")
+    @FindBy(xpath = "//input[@type = 'email']")
     private WebElement emailInputField;
 
     @FindBy(xpath = "//button[@aria-label = 'Send Email']")
