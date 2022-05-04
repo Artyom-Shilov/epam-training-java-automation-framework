@@ -76,7 +76,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         final String LETTER_TOTAL_COST_SUBSTRING_END = "\n\n* The estimated";
 
         openCalculatorPage();
-        EstimatePage estimatePage = getEstimatePageAccordingToOptions();
+        EstimatePage estimatePage = getEstimatePageAccordingToOptions().openEmailEstimationForm();
 
         GeneratedAddressPage generatedAddressPage = new YopmailHomePage(driver)
                 .openInNewTab()
