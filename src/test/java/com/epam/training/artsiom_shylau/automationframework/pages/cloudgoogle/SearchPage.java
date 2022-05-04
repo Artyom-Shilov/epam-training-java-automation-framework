@@ -22,7 +22,7 @@ public class SearchPage extends BasePage {
     public SearchPage(WebDriver driver, String searchTerm) {
         super(driver);
         this.searchTerm = searchTerm;
-        xpathForLinkAccordingToSearchTermBlank = String.format(xpathForLinkAccordingToSearchTermBlank, searchTerm);
+        xpathForLinkAccordingToSearchTermBlank = String.format(xpathForLinkAccordingToSearchTermBlank, "Google Cloud Pricing Calculator");
     }
 
     public void openPageAccordingToSearchTermCarefully() {
