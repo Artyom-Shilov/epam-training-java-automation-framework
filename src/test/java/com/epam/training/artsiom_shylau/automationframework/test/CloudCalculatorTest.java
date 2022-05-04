@@ -83,7 +83,9 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .generateMailAddress()
                 .copyGeneratedAddress();
 
-        estimatePage.switchToTabOfThisPage().pasteEmailAndSendPriceLetter();
+        Email generatedEmail = generatedAddressPage.getGeneratedEmail();
+
+        estimatePage.switchToTabOfThisPage().pasteEmailAndSendPriceLetter(generatedEmail);
 
         Letter receivedLetter = generatedAddressPage
                 .switchToTabOfThisPage()
