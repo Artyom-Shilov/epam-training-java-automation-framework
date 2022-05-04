@@ -181,4 +181,20 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .isPossibleToSendEmail();
         Assert.assertFalse(isAbleToSendEmail);
     }
+
+    @Test
+    public void shouldBeAbleToSendEmailUsingValidPastedAddress() {
+        openCalculatorPage();
+
+        EstimatePage estimatePage = getEstimatePageAccordingToOptions().openEmailEstimationForm();
+
+        new YopmailHomePage(driver)
+                .openInNewTab()
+                .generateMailAddress()
+                .copyGeneratedAddress();
+
+        boolean isAbleToSendEmail = estimatePage.switchToTabOfThisPage().pasteAddress().isPossibleToSendEmail();
+
+        Assert.assertTrue(isAbleToSendEmail);
+    }
 }

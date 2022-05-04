@@ -86,10 +86,7 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
     }
 
     public EstimatePage pasteAddressAndSendEmail() {
-        driver.switchTo().defaultContent();
-        waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
-        waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
-        emailInputField.sendKeys(Keys.CONTROL, "v");
+        pasteAddress();
         sendEmailButton.click();
         logger.info("Send email button has been clicked");
         return this;
@@ -99,6 +96,14 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
         inputAddress(email);
         sendEmailButton.click();
         logger.info("Send email button has been clicked");
+        return this;
+    }
+
+    public EstimatePage pasteAddress() {
+        driver.switchTo().defaultContent();
+        waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
+        waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
+        emailInputField.sendKeys(Keys.CONTROL, "v");
         return this;
     }
 
