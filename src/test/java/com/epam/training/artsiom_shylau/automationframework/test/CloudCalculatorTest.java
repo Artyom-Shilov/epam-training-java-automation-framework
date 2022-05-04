@@ -36,8 +36,8 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .openPage()
                 //.hideCookieNotification()
                 .searchForTerm("Google Cloud Pricing Calculator")
-                .openPageAccordingToSearchTerm();
-                //.openPageAccordingToSearchTermCarefully();
+                //.openPageAccordingToSearchTerm();
+                .openPageAccordingToSearchTermCarefully();
     }
 
     private EstimatePage getEstimatePageAccordingToOptions() throws VariantSelectionException {
