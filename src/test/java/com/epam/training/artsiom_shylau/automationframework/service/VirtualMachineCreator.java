@@ -1,6 +1,5 @@
 package com.epam.training.artsiom_shylau.automationframework.service;
 
-import com.epam.training.artsiom_shylau.automationframework.model.GPU;
 import com.epam.training.artsiom_shylau.automationframework.model.VirtualMachine;
 
 public class VirtualMachineCreator {

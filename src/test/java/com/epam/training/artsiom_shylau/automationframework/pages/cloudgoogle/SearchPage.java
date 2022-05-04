@@ -16,7 +16,8 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//section[@id = 'gc-wrapper']//a[text() = 'Next']")
     private WebElement linkNext;
 
-    private String xpathForLinkAccordingToSearchTermBlank = "//div[@id = '___gcse_0']//div[@class = 'gs-title']/a/b[text() = '%s']";
+    private String xpathForLinkAccordingToSearchTermBlank = "//div[@id = '___gcse_0']" +
+            "//div[@class = 'gs-title']/a/b[text() = '%s']";
 
 
     public SearchPage(WebDriver driver, String searchTerm) {

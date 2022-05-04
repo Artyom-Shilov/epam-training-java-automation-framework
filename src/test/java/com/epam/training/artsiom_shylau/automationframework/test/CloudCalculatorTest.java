@@ -1,6 +1,5 @@
 package com.epam.training.artsiom_shylau.automationframework.test;
 
-import com.epam.training.artsiom_shylau.automationframework.exceptions.VariantSelectionException;
 import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.CloudPlatformPricingCalculatorPage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.EstimatePage;
@@ -9,6 +8,7 @@ import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.Genera
 import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.YopmailHomePage;
 import com.epam.training.artsiom_shylau.automationframework.service.*;
 import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,28 +34,27 @@ public class CloudCalculatorTest extends CommonTestConditions {
     private void openCalculatorPage() {
         new GoogleCloudHomePage(driver)
                 .openPage()
-                //.hideCookieNotification()
+                .hideCookieNotification()
                 .searchForTerm("Google Cloud Pricing Calculator")
                 .openPageAccordingToSearchTerm();
-                //.openPageAccordingToSearchTermCarefully();
     }
 
-    private EstimatePage getEstimatePageAccordingToOptions() throws VariantSelectionException {
+    private EstimatePage getEstimatePageAccordingToOptions()  {
         return new CloudPlatformPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
                 .inputNumberOfInstances(virtualMachine)
-                .chooseOperatingSystemByVariantText(virtualMachine)
-                //.chooseMachineClassByVariantText(virtualMachine)
-                //.chooseInstanceTypeByVariantText(virtualMachine)
-               // .addGPUByGPYTypeText(graphicProcessor)
-               // .chooseLocalSSDByText(localSSD)
-               // .chooseDatacenterLocationByText(datacenter)
-                .chooseCommittedUsageByText(usageTerm)
+                .chooseOperatingSystem(virtualMachine)
+                .chooseMachineClass(virtualMachine)
+                .chooseInstanceType(virtualMachine)
+                .addGPU(graphicProcessor)
+                .chooseLocalSSD(localSSD)
+                .chooseDatacenterLocation(datacenter)
+                .chooseCommittedUsage(usageTerm)
                 .addToEstimate();
     }
 
     @Test
-    public void shouldCalculatePlatformPrice() throws VariantSelectionException {
+    public void shouldCalculatePlatformPrice() {
         openCalculatorPage();
         EstimatePage estimatePage = getEstimatePageAccordingToOptions();
 
@@ -70,7 +69,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     }
 
     @Test
-    public void shouldReceiveLetterWithCalculatedPrice() throws VariantSelectionException {
+    public void shouldReceiveLetterWithCalculatedPrice() {
 
         final String LETTER_TOTAL_COST_SUBSTRING_START = "Total *:\n";
         final String LETTER_TOTAL_COST_SUBSTRING_END = "\n\n* The estimated";
@@ -83,9 +82,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .generateMailAddress()
                 .copyGeneratedAddress();
 
-        Email generatedEmail = generatedAddressPage.getGeneratedEmail();
-
-        estimatePage.switchToTabOfThisPage().pasteEmailAndSendPriceLetter(generatedEmail);
+        estimatePage.switchToTabOfThisPage().pasteAddressAndSendEmail();
 
         Letter receivedLetter = generatedAddressPage
                 .switchToTabOfThisPage()
@@ -102,7 +99,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseOperatingSystemByVariantId(virtualMachine));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseOperatingSystem(virtualMachine));
     }
 
     @Test
@@ -110,7 +107,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseDatacenterLocationById(datacenter));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseDatacenterLocation(datacenter));
     }
 
     @Test
@@ -118,7 +115,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.addGPUByGPYTypeText(graphicProcessor));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.addGPU(graphicProcessor));
     }
 
     @Test
@@ -126,7 +123,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseLocalSSDById(localSSD));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseLocalSSD(localSSD));
     }
 
     @Test
@@ -134,7 +131,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseInstanceTypeByVariantId(virtualMachine));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseInstanceType(virtualMachine));
     }
 
     @Test
@@ -142,7 +139,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseMachineClassByVariantId(virtualMachine));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseMachineClass(virtualMachine));
     }
 
     @Test
@@ -150,7 +147,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseCommittedUsageById(usageTerm));
+        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseCommittedUsage(usageTerm));
     }
 
     @Test
@@ -165,23 +162,23 @@ public class CloudCalculatorTest extends CommonTestConditions {
     }
 
     @Test
-    public void shouldNotBeAbleToChooseGPUWhenVirtualWhenVirtualMachineSeriesIsNotN1() throws VariantSelectionException {
+    public void shouldNotBeAbleToChooseGPUWhenVirtualWhenVirtualMachineSeriesIsNotN1() {
         openCalculatorPage();
         boolean isAbleToChooseGPU = new CloudPlatformPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
-                .chooseInstanceTypeByVariantId(virtualMachine)
+                .chooseInstanceType(virtualMachine)
                 .isPossibleToChooseGPU();
 
         Assert.assertFalse(isAbleToChooseGPU);
     }
 
     @Test
-    public void shouldNotBeAbleToSendEmailWhenEnteredAddressDoesNotSuitFormat() throws VariantSelectionException {
+    public void shouldNotBeAbleToSendEmailWhenEnteredAddressDoesNotSuitFormat() {
         Email email = EmailCreator.createEmailWithDataFromProperty();
         openCalculatorPage();
         boolean isAbleToSendEmail = getEstimatePageAccordingToOptions()
                 .openEmailEstimationForm()
-                .inputEmail(email)
+                .inputAddress(email)
                 .isPossibleToSendEmail();
         Assert.assertFalse(isAbleToSendEmail);
     }

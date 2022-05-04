@@ -26,10 +26,6 @@ public class Waiting {
         return waitObject.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
     }
 
-    public WebElement waitForClickableConditionById(String id) {
-        return waitObject.until(ExpectedConditions.elementToBeClickable(By.id(id)));
-    }
-
     public WebElement waitForVisibleCondition(WebElement element) {
        return waitObject.until(ExpectedConditions.visibilityOf(element));
     }

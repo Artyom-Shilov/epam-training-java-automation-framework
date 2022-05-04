@@ -7,11 +7,10 @@ import org.testng.annotations.Test;
 
 public class MailInteractionsTest extends CommonTestConditions {
 
-   // @Test
+    @Test
     public void shouldGenerateEmail() {
         Email generatedEmail = new YopmailHomePage(driver)
                 .openPage()
-                //.hideCookieNotification()
                 .generateMailAddress()
                 .copyGeneratedAddress()
                 .getGeneratedEmail();

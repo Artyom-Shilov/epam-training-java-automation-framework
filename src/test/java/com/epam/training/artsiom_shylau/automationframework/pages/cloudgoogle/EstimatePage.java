@@ -48,27 +48,35 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
     }
 
     public String readVMClass() {
-        return StringOperations.getSubstring(waiting.waitForVisibleCondition(vmClassElement).getText(), COLON_AND_SPACE);
+        return StringOperations.getSubstring(
+                waiting.waitForVisibleCondition(vmClassElement).getText(), COLON_AND_SPACE);
     }
 
     public String readInstanceType() {
-        return StringOperations.getSubstring(waiting.waitForVisibleCondition(instanceTypeElement).getText(), COLON_AND_SPACE, "\n");
+        return StringOperations.getSubstring(
+                waiting.waitForVisibleCondition(instanceTypeElement).getText(), COLON_AND_SPACE, "\n");
     }
 
     public String readRegion() {
-        return StringOperations.getSubstring(waiting.waitForVisibleCondition(regionElement).getText(), COLON_AND_SPACE);
+        return StringOperations.getSubstring(
+                waiting.waitForVisibleCondition(regionElement).getText(), COLON_AND_SPACE);
     }
 
     public String readLocalSSD() {
-        return StringOperations.getSubstring(waiting.waitForVisibleCondition(localSSDElement).getText(), COLON_AND_SPACE, LOCAL_SSD_SUBSTRING_END);
+        return StringOperations.getSubstring(
+                waiting.waitForVisibleCondition(localSSDElement).getText(), COLON_AND_SPACE, LOCAL_SSD_SUBSTRING_END);
     }
 
     public String readCommitmentTerm() {
-        return StringOperations.getSubstring(waiting.waitForVisibleCondition(commitmentTermElement).getText(), COLON_AND_SPACE);
+        return StringOperations.getSubstring(
+                waiting.waitForVisibleCondition(commitmentTermElement).getText(), COLON_AND_SPACE);
     }
 
     public String readTotalCommitmentCost() {
-        return StringOperations.getSubstring(waiting.waitForVisibleCondition(totalEstimatedCostElement).getText(), TOTAL_COST_SUBSTRING_START, TOTAL_COST_SUBSTRING_END);
+        return StringOperations.getSubstring(
+                waiting.waitForVisibleCondition(totalEstimatedCostElement).getText(),
+                TOTAL_COST_SUBSTRING_START,
+                TOTAL_COST_SUBSTRING_END);
     }
 
     public EstimatePage openEmailEstimationForm() {
@@ -77,35 +85,21 @@ public class EstimatePage extends CloudPlatformPricingCalculatorPage {
         return this;
     }
 
-    public EstimatePage pasteEmailAndSendPriceLetter() {
+    public EstimatePage pasteAddressAndSendEmail() {
         driver.switchTo().defaultContent();
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
         waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
-        logger.info("on the email form, mail generated");
-        waiting.waitForVisibleCondition(emailInputField).sendKeys(Keys.CONTROL, "v");
-        waiting.waitForClickableCondition(sendEmailButton).click();
-        logger.info("Send email button has been clicked");
-        return this;
-    }
-
-    public EstimatePage pasteEmailAndSendPriceLetter(Email email) {
-        driver.switchTo().defaultContent();
-        waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
-        waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
-        logger.info("on the email form, mail generated");
-       // waiting.waitForVisibleCondition(emailInputField).sendKeys(email.getAddress());
-        emailInputField.sendKeys(email.getAddress());
+        emailInputField.sendKeys(Keys.CONTROL, "v");
         sendEmailButton.click();
-       // waiting.waitForClickableCondition(sendEmailButton).click();
         logger.info("Send email button has been clicked");
         return this;
     }
 
-    public EstimatePage inputEmail(Email email) {
+    public EstimatePage inputAddress(Email email) {
         driver.switchTo().defaultContent();
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
         waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
-        waiting.waitForVisibleCondition(emailInputField).sendKeys(email.getAddress());
+        emailInputField.sendKeys(email.getAddress());
         return this;
     }
 

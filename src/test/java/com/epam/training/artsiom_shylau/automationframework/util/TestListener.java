@@ -1,7 +1,6 @@
 package com.epam.training.artsiom_shylau.automationframework.util;
 
 import com.epam.training.artsiom_shylau.automationframework.driver.DriverSingleton;
-import com.google.common.io.Files;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
