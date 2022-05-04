@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CloudPlatformPricingCalculatorPage extends BasePage {
+public class CloudPricingCalculatorPage extends BasePage {
 
     private final Logger logger = LogManager.getRootLogger();
 
@@ -79,7 +79,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
             "//div[@class = 'md-select-menu-container cpc-region-select md-active md-clickable']" +
                     "//div[contains(text(), '%s')]";
 
-    public CloudPlatformPricingCalculatorPage(WebDriver driver) {
+    public CloudPricingCalculatorPage(WebDriver driver) {
         super(driver);
     }
 
@@ -87,7 +87,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return String.format(BLANK_XPATH_FOR_VARIANT_SELECTION_BY_TEXT, variantText);
     }
 
-    public CloudPlatformPricingCalculatorPage activateComputeEngineSection() {
+    public CloudPricingCalculatorPage activateComputeEngineSection() {
         waiting.waitForFrameAvailabilityAndSwitchToIt(outerFrame);
         waiting.waitForFrameAvailabilityAndSwitchToIt(myFrame);
         waiting.waitForClickableCondition(computeEngineSectionElement).click();
@@ -95,28 +95,28 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage inputNumberOfInstances(VirtualMachine machine) {
+    public CloudPricingCalculatorPage inputNumberOfInstances(VirtualMachine machine) {
         waiting.waitForClickableCondition(numberOfInstancesInput)
                 .sendKeys(String.valueOf(machine.getNumberOfInstances()));
         logger.info("Number of instances has been entered");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) {
+    public CloudPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) {
         waiting.waitForClickableCondition(operationSystemSelectionElement).click();
         waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machine.getOperatingSystem())).click();
         logger.info("Operating system variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseMachineClass(VirtualMachine machine) {
+    public CloudPricingCalculatorPage chooseMachineClass(VirtualMachine machine) {
         waiting.waitForClickableCondition(machineClassSelectionElement).click();
         waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machine.getMachineClass())).click();
         logger.info("Machine class variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseInstanceType(VirtualMachine machine) {
+    public CloudPricingCalculatorPage chooseInstanceType(VirtualMachine machine) {
         waiting.waitForClickableCondition(seriesSelectionElement).click();
         String machineType = machine.getMachineType();
         String machineSeries = machineType.substring(0, MACHINE_SERIES_SUBSTRING_END_INDEX).toUpperCase();
@@ -127,7 +127,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage addGPU(GPU graphicsProcessor) {
+    public CloudPricingCalculatorPage addGPU(GPU graphicsProcessor) {
         waiting.waitForClickableCondition(addGPUCheckbox).click();
         waiting.waitForClickableCondition(gpuTypeSelectionElement).click();
         waiting.waitForClickableCondition(formXpathForVariantSelectionByText(graphicsProcessor.getTypeOfGPU())).click();
@@ -138,7 +138,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) {
+    public CloudPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) {
         waiting.waitForClickableCondition(localSSDSelectionElement).click();
         waiting.waitForClickableCondition(formXpathForVariantSelectionByText(localSSD.getCapacity())).click();
         logger.info("Local SSD variant has been chosen");
@@ -146,7 +146,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     }
 
 
-    public CloudPlatformPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) {
+    public CloudPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) {
         waiting.waitForClickableCondition(datacenterLocationSelectionElement).click();
         waiting.waitForClickableCondition(String.format(
                 BLANK_XPATH_FOR_DATACENTER_VARIANT_SELECTION_BY_TEXT, datacenter.getLocation())).click();
@@ -155,7 +155,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     }
 
 
-    public CloudPlatformPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) {
+    public CloudPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) {
         waiting.waitForClickableCondition(committedUsageSelectionElement).click();
         waiting.waitForClickableCondition(formXpathForVariantSelectionByText(usageTerm.getDuration())).click();
         logger.info("Commitment usage variant has been chosen");

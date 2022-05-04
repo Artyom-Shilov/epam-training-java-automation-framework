@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
-public class EstimatePage extends CloudPlatformPricingCalculatorPage {
+public class EstimatePage extends CloudPricingCalculatorPage {
 
     private static final String TOTAL_COST_SUBSTRING_START = "USD ";
     private static final String TOTAL_COST_SUBSTRING_END = " per";

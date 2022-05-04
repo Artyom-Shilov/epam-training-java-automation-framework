@@ -1,7 +1,7 @@
 package com.epam.training.artsiom_shylau.automationframework.test;
 
 import com.epam.training.artsiom_shylau.automationframework.model.*;
-import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.CloudPlatformPricingCalculatorPage;
+import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.CloudPricingCalculatorPage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.EstimatePage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.GoogleCloudHomePage;
 import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.GeneratedAddressPage;
@@ -38,7 +38,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     }
 
     private EstimatePage getEstimatePageAccordingToOptions()  {
-        return new CloudPlatformPricingCalculatorPage(driver)
+        return new CloudPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
                 .inputNumberOfInstances(virtualMachine)
                 .chooseOperatingSystem(virtualMachine)
@@ -96,7 +96,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenOperationSystemOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseOperatingSystem(virtualMachine));
     }
@@ -104,7 +104,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenDatacenterLocationOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseDatacenterLocation(datacenter));
     }
@@ -112,7 +112,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenGPUTypeOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.addGPU(graphicProcessor));
     }
@@ -120,7 +120,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenLocalSSDOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseLocalSSD(localSSD));
     }
@@ -128,7 +128,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenInstanceTypeOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseInstanceType(virtualMachine));
     }
@@ -136,7 +136,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenMachineClassOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseMachineClass(virtualMachine));
     }
@@ -144,7 +144,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldThrowExceptionForPriceCalculationWhenUsageDurationOptionIsUnknown() {
         openCalculatorPage();
-        CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
         Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseCommittedUsage(usageTerm));
     }
@@ -152,7 +152,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldNotBeAbleToCalculatePriceWhenNumberOfInstancesIsNotPositive() {
         openCalculatorPage();
-        boolean isAbleToCalculate = new CloudPlatformPricingCalculatorPage(driver)
+        boolean isAbleToCalculate = new CloudPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
                 .inputNumberOfInstances(virtualMachine)
                 .isReadyToCalculatePrice();
@@ -163,7 +163,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
     @Test
     public void shouldNotBeAbleToChooseGPUWhenVirtualWhenVirtualMachineSeriesIsNotN1() {
         openCalculatorPage();
-        boolean isAbleToChooseGPU = new CloudPlatformPricingCalculatorPage(driver)
+        boolean isAbleToChooseGPU = new CloudPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
                 .chooseInstanceType(virtualMachine)
                 .isPossibleToChooseGPU();
@@ -175,7 +175,10 @@ public class CloudCalculatorTest extends CommonTestConditions {
     public void shouldNotBeAbleToSendEmailWhenEnteredAddressDoesNotSuitFormat() {
         Email email = EmailCreator.createEmailWithDataFromProperty();
         openCalculatorPage();
-        boolean isAbleToSendEmail = getEstimatePageAccordingToOptions()
+        boolean isAbleToSendEmail = new CloudPricingCalculatorPage(driver)
+                .activateComputeEngineSection()
+                .inputNumberOfInstances(virtualMachine)
+                .addToEstimate()
                 .openEmailEstimationForm()
                 .inputAddress(email)
                 .isPossibleToSendEmail();

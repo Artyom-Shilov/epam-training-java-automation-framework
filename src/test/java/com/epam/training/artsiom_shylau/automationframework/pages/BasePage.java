@@ -14,9 +14,6 @@ public class BasePage {
     protected Waiting waiting;
 
     public BasePage(WebDriver driver) {
-        if (driver == null) {
-            throw new IllegalArgumentException("driver is null");
-        }
         this.driver = driver;
         waiting = new Waiting(driver, TIME_TO_WAIT_IN_SECONDS);
         windowHandle = driver.getWindowHandle();
