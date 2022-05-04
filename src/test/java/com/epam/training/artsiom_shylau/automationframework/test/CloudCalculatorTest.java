@@ -36,16 +36,16 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .openPage()
                 //.hideCookieNotification()
                 .searchForTerm("Google Cloud Platform Pricing Calculator")
-                .openPageAccordingToSearchTerm();
-                //.openPageAccordingToSearchTermCarefully();
+                //.openPageAccordingToSearchTerm();
+                .openPageAccordingToSearchTermCarefully();
     }
 
     private EstimatePage getEstimatePageAccordingToOptions() throws VariantSelectionException {
         return new CloudPlatformPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
                 .inputNumberOfInstances(virtualMachine)
-                .chooseOperatingSystem(virtualMachine)
-                .chooseMachineClass(virtualMachine)
+                .chooseOperatingSystemByVariantId(virtualMachine)
+                .chooseMachineClassByVariantId(virtualMachine)
                 .chooseInstanceType(virtualMachine)
                 .addGPU(graphicProcessor)
                 .chooseLocalSSD(localSSD)
@@ -101,7 +101,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseOperatingSystem(virtualMachine));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseOperatingSystemByVariantId(virtualMachine));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseMachineClass(virtualMachine));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseMachineClassByVariantId(virtualMachine));
     }
 
     @Test

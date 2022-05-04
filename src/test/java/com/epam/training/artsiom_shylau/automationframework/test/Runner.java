@@ -1,12 +1,9 @@
 package com.epam.training.artsiom_shylau.automationframework.test;
 
 import com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle.MachineClassVariants;
-import com.epam.training.artsiom_shylau.automationframework.enums.cloudgoogle.OperationSystemVariants;
 import com.epam.training.artsiom_shylau.automationframework.exceptions.VariantSelectionException;
 import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.service.*;
-
-import java.util.ResourceBundle;
 
 public class Runner {
     public static void main(String[] args) throws VariantSelectionException {

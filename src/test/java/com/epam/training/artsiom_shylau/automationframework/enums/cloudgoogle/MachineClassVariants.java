@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 public enum MachineClassVariants {
 
-    REGULAR("regular","select_option_96"),
-    PREEMPTIBLE("preemptible", "select_option_97");
+    REGULAR("regular","select_option_97"),
+    PREEMPTIBLE("preemptible", "select_option_98");
 
     private String machineClassTextValue;
     private String machineClassOptionId;

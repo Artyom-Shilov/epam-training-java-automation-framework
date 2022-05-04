@@ -72,6 +72,10 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     private final String blankXpathForGPUNumberVariant = "//md-option[@ng-disabled = 'item.value != 0 " +
             "&& item.value < listingCtrl.minGPU' and @value = '%s']";
 
+    private final String blankXpathForOperatingSystemVariantSelectionByText =  "//div[@id = 'select_container_96']//div[contains(text(), '%s')]";
+
+    private final String blankXpathForMachineClassVariantSelectionByText =  "//div[@id = 'select_container_100']//div[text() = '%s']";
+
     public CloudPlatformPricingCalculatorPage(WebDriver driver) {
         super(driver);
     }
@@ -90,18 +94,32 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) throws VariantSelectionException {
-        String optionId = OperationSystemVariants.getOperationSystemOptionIdByTextValue(machine.getOperationSystem());
+    public CloudPlatformPricingCalculatorPage chooseOperatingSystemByVariantId(VirtualMachine machine) throws VariantSelectionException {
+        String optionId = OperatingSystemVariants.getOperationSystemOptionIdByTextValue(machine.getOperationSystem());
         waiting.waitForClickableCondition(operationSystemSelectionElement).click();
         waiting.waitForClickableConditionById(optionId).click();
         logger.info("Operating system variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseMachineClass(VirtualMachine machine) throws VariantSelectionException {
+    public CloudPlatformPricingCalculatorPage chooseOperatingSystemByVariantText(VirtualMachine machine) {
+        waiting.waitForClickableCondition(operationSystemSelectionElement).click();
+        waiting.waitForClickableCondition(String.format(blankXpathForOperatingSystemVariantSelectionByText, machine.getOperationSystem())).click();
+        logger.info("Operating system variant has been chosen");
+        return this;
+    }
+
+    public CloudPlatformPricingCalculatorPage chooseMachineClassByVariantId(VirtualMachine machine) throws VariantSelectionException {
         String optionId = MachineClassVariants.getMachineClassOptionIdByTextValue(machine.getMachineClass());
         waiting.waitForClickableCondition(machineClassSelectionElement).click();
         waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Machine class variant has been chosen");
+        return this;
+    }
+
+    public CloudPlatformPricingCalculatorPage chooseMachineClassByVariantText(VirtualMachine machine) throws VariantSelectionException {
+        waiting.waitForClickableCondition(machineClassSelectionElement).click();
+        waiting.waitForClickableCondition(String.format(blankXpathForOperatingSystemVariantSelectionByText, machine.getMachineClass())).click();
         logger.info("Machine class variant has been chosen");
         return this;
     }

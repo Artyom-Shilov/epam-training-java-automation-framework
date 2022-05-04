@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public enum MachineTypeVariants {
 
-    N1_STANDART_8("n1-standard-8", "select_option_221", "select_option_427"),
-    N1_HIGHMEM_4("n1-highmem-4", "select_option_221", "select_option_433"),
-    N2_STANDART_16("n2-standard-16", "select_option_222", "select_option_425");
+    N1_STANDART_8("n1-standard-8", "select_option_222", "select_option_431"),
+    N1_HIGHMEM_4("n1-highmem-4", "select_option_222", "select_option_437"),
+    N2_STANDART_16("n2-standard-16", "select_option_223", "select_option_465");
 
     private String machineTypeTextValue;
     private String seriesOptionId;
