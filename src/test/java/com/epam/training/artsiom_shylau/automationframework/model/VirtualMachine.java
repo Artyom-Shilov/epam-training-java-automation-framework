@@ -7,13 +7,13 @@ public class VirtualMachine {
     private int numberOfInstances;
     private String machineClass;
     private String machineType;
-    private String operationSystem;
+    private String operatingSystem;
 
     public VirtualMachine(int numberOfInstances, String machineClass, String machineType, String operationSystem) {
         this.numberOfInstances = numberOfInstances;
         this.machineClass = machineClass;
         this.machineType = machineType;
-        this.operationSystem = operationSystem;
+        this.operatingSystem = operationSystem;
     }
 
     public int getNumberOfInstances() {
@@ -40,12 +40,12 @@ public class VirtualMachine {
         this.machineType = machineType;
     }
 
-    public String getOperationSystem() {
-        return operationSystem;
+    public String getOperatingSystem() {
+        return operatingSystem;
     }
 
-    public void setOperationSystem(String operationSystem) {
-        this.operationSystem = operationSystem;
+    public void setOperatingSystem(String operatingSystem) {
+        this.operatingSystem = operatingSystem;
     }
 
     @Override
@@ -53,12 +53,12 @@ public class VirtualMachine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VirtualMachine that = (VirtualMachine) o;
-        return numberOfInstances == that.numberOfInstances && Objects.equals(machineClass, that.machineClass) && Objects.equals(machineType, that.machineType) && Objects.equals(operationSystem, that.operationSystem);
+        return numberOfInstances == that.numberOfInstances && Objects.equals(machineClass, that.machineClass) && Objects.equals(machineType, that.machineType) && Objects.equals(operatingSystem, that.operatingSystem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numberOfInstances, machineClass, machineType, operationSystem);
+        return Objects.hash(numberOfInstances, machineClass, machineType, operatingSystem);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class VirtualMachine {
                 "numberOfInstances=" + numberOfInstances +
                 ", machineClass='" + machineClass + '\'' +
                 ", machineType='" + machineType + '\'' +
-                ", operationSystem='" + operationSystem + '\'' +
+                ", operatingSystem='" + operatingSystem + '\'' +
                 '}';
     }
 

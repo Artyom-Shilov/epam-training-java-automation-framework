@@ -7,7 +7,7 @@ import com.epam.training.artsiom_shylau.automationframework.service.*;
 
 public class Runner {
     public static void main(String[] args) throws VariantSelectionException {
-      //  System.out.println(DatacenterLocationVariants.valueOf("frankfut".toUpperCase()).getDatacenterLocationOptionId());
+      /*//  System.out.println(DatacenterLocationVariants.valueOf("frankfut".toUpperCase()).getDatacenterLocationOptionId());
         String s = "1234{%s}";
         s = String.format(s, "tt");
 
@@ -31,7 +31,11 @@ public class Runner {
 
         System.out.println(MachineClassVariants.REGULAR.getMachineClassOptionId());
 
-        //MachineClassVariants.getMachineClassOptionIdByTextValue("regular");
+        //MachineClassVariants.getMachineClassOptionIdByTextValue("regular");*/
+
+        String str = "n1-standart-8";
+
+        System.out.println(str.substring(0, 2).toUpperCase());
 
 
 

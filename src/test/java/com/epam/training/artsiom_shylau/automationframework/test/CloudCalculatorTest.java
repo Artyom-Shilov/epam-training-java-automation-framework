@@ -44,13 +44,13 @@ public class CloudCalculatorTest extends CommonTestConditions {
         return new CloudPlatformPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
                 .inputNumberOfInstances(virtualMachine)
-                .chooseOperatingSystemByVariantId(virtualMachine)
-                .chooseMachineClassByVariantId(virtualMachine)
-                .chooseInstanceType(virtualMachine)
-                .addGPU(graphicProcessor)
-                .chooseLocalSSD(localSSD)
-                .chooseDatacenterLocation(datacenter)
-                .chooseCommittedUsage(usageTerm)
+                .chooseOperatingSystemByVariantText(virtualMachine)
+                .chooseMachineClassByVariantText(virtualMachine)
+                .chooseInstanceTypeByVariantText(virtualMachine)
+                .addGPUByGPYTypeText(graphicProcessor)
+                .chooseLocalSSDByText(localSSD)
+                .chooseDatacenterLocationByText(datacenter)
+                .chooseCommittedUsageByText(usageTerm)
                 .addToEstimate();
     }
 
@@ -109,7 +109,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseDatacenterLocation(datacenter));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseDatacenterLocationById(datacenter));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.addGPU(graphicProcessor));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.addGPUByGPYTypeText(graphicProcessor));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseLocalSSD(localSSD));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseLocalSSDById(localSSD));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseInstanceType(virtualMachine));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseInstanceTypeByVariantId(virtualMachine));
     }
 
     @Test
@@ -149,7 +149,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         CloudPlatformPricingCalculatorPage calculatorPage = new CloudPlatformPricingCalculatorPage(driver);
         calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseCommittedUsage(usageTerm));
+        Assert.assertThrows(VariantSelectionException.class, () -> calculatorPage.chooseCommittedUsageById(usageTerm));
     }
 
     @Test
@@ -168,7 +168,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         openCalculatorPage();
         boolean isAbleToChooseGPU = new CloudPlatformPricingCalculatorPage(driver)
                 .activateComputeEngineSection()
-                .chooseInstanceType(virtualMachine)
+                .chooseInstanceTypeByVariantId(virtualMachine)
                 .isPossibleToChooseGPU();
 
         Assert.assertFalse(isAbleToChooseGPU);

@@ -72,12 +72,14 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     private final String blankXpathForGPUNumberVariant = "//md-option[@ng-disabled = 'item.value != 0 " +
             "&& item.value < listingCtrl.minGPU' and @value = '%s']";
 
-    private final String blankXpathForOperatingSystemVariantSelectionByText =  "//div[@id = 'select_container_96']//div[contains(text(), '%s')]";
-
-    private final String blankXpathForMachineClassVariantSelectionByText =  "//div[@id = 'select_container_100']//div[text() = '%s']";
+    private final String blankXpathForVariantSelectionByText =  "//div[@class = 'md-select-menu-container md-active md-clickable']//div[contains(text(), '%s')]";
 
     public CloudPlatformPricingCalculatorPage(WebDriver driver) {
         super(driver);
+    }
+
+    private String formXpathForVariantSelectionByText(String variantText) {
+        return String.format(blankXpathForVariantSelectionByText, variantText);
     }
 
     public CloudPlatformPricingCalculatorPage activateComputeEngineSection() {
@@ -95,7 +97,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     }
 
     public CloudPlatformPricingCalculatorPage chooseOperatingSystemByVariantId(VirtualMachine machine) throws VariantSelectionException {
-        String optionId = OperatingSystemVariants.getOperationSystemOptionIdByTextValue(machine.getOperationSystem());
+        String optionId = OperatingSystemVariants.getOperationSystemOptionIdByTextValue(machine.getOperatingSystem());
         waiting.waitForClickableCondition(operationSystemSelectionElement).click();
         waiting.waitForClickableConditionById(optionId).click();
         logger.info("Operating system variant has been chosen");
@@ -104,7 +106,7 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
 
     public CloudPlatformPricingCalculatorPage chooseOperatingSystemByVariantText(VirtualMachine machine) {
         waiting.waitForClickableCondition(operationSystemSelectionElement).click();
-        waiting.waitForClickableCondition(String.format(blankXpathForOperatingSystemVariantSelectionByText, machine.getOperationSystem())).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machine.getOperatingSystem())).click();
         logger.info("Operating system variant has been chosen");
         return this;
     }
@@ -119,12 +121,12 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
 
     public CloudPlatformPricingCalculatorPage chooseMachineClassByVariantText(VirtualMachine machine) throws VariantSelectionException {
         waiting.waitForClickableCondition(machineClassSelectionElement).click();
-        waiting.waitForClickableCondition(String.format(blankXpathForOperatingSystemVariantSelectionByText, machine.getMachineClass())).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machine.getMachineClass())).click();
         logger.info("Machine class variant has been chosen");
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseInstanceType(VirtualMachine machine) throws VariantSelectionException {
+    public CloudPlatformPricingCalculatorPage chooseInstanceTypeByVariantId(VirtualMachine machine) throws VariantSelectionException {
         MachineTypeVariants matchedVariant = MachineTypeVariants.getEnumElementByTextValue(machine.getMachineType());
         waiting.waitForClickableCondition(seriesSelectionElement).click();
         waiting.waitForClickableConditionById(matchedVariant.getSeriesOptionId()).click();
@@ -134,7 +136,19 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage addGPU(GPU graphicsProcessor) throws VariantSelectionException {
+    public CloudPlatformPricingCalculatorPage chooseInstanceTypeByVariantText(VirtualMachine machine) throws VariantSelectionException {
+        waiting.waitForClickableCondition(seriesSelectionElement).click();
+        String machineType = machine.getMachineType();
+        String machineSeries = machineType.substring(0, 2).toUpperCase();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machineSeries)).click();
+        waiting.waitForClickableCondition(machineTypeSelectionElement).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machineType)).click();
+        logger.info("Instance type variant has been chosen");
+        return this;
+    }
+
+
+    public CloudPlatformPricingCalculatorPage addGPUByGPYTypeId(GPU graphicsProcessor) throws VariantSelectionException {
         String typeOfGpuOptionId = GPUVariants.getTypeOfGPUOptionIdByTextValue(graphicsProcessor.getTypeOfGPU());
         waiting.waitForClickableCondition(addGPUCheckbox).click();
         waiting.waitForClickableCondition(gpuTypeSelectionElement).click();
@@ -146,7 +160,18 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) throws VariantSelectionException {
+    public CloudPlatformPricingCalculatorPage addGPUByGPYTypeText(GPU graphicsProcessor) throws VariantSelectionException {
+        waiting.waitForClickableCondition(addGPUCheckbox).click();
+        waiting.waitForClickableCondition(gpuTypeSelectionElement).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(graphicsProcessor.getTypeOfGPU())).click();
+        waiting.waitForClickableCondition(gpuNumberSelectionElement).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(String.valueOf(graphicsProcessor.getNumberOfGPU()))).click();
+        logger.info("Type of GPU variant has been chosen");
+        return this;
+    }
+
+
+    public CloudPlatformPricingCalculatorPage chooseLocalSSDById(LocalSSD localSSD) throws VariantSelectionException {
         String optionId = LocalSSDVariants.getCapacityOptionIdByTextValue(localSSD.getCapacity());
         waiting.waitForClickableCondition(localSSDSelectionElement).click();
         waiting.waitForClickableConditionById(optionId).click();
@@ -154,7 +179,14 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) throws VariantSelectionException {
+    public CloudPlatformPricingCalculatorPage chooseLocalSSDByText(LocalSSD localSSD) throws VariantSelectionException {
+        String optionId = LocalSSDVariants.getCapacityOptionIdByTextValue(localSSD.getCapacity());
+        waiting.waitForClickableCondition(localSSDSelectionElement).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(localSSD.getCapacity())).click();
+        logger.info("Local SSD variant has been chosen");
+        return this;
+    }
+    public CloudPlatformPricingCalculatorPage chooseDatacenterLocationById(Datacenter datacenter) throws VariantSelectionException {
         String optionId = DatacenterLocationVariants.getDatacenterLocationOptionIdByTextValue(datacenter.getLocation());
         waiting.waitForClickableCondition(datacenterLocationSelectionElement).click();
         waiting.waitForClickableConditionById(optionId).click();
@@ -162,10 +194,26 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
         return this;
     }
 
-    public CloudPlatformPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) throws VariantSelectionException {
+    public CloudPlatformPricingCalculatorPage chooseDatacenterLocationByText(Datacenter datacenter) throws VariantSelectionException {
+        String optionId = DatacenterLocationVariants.getDatacenterLocationOptionIdByTextValue(datacenter.getLocation());
+        waiting.waitForClickableCondition(datacenterLocationSelectionElement).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(datacenter.getLocation())).click();
+        logger.info("Datacenter variant has been chosen");
+        return this;
+    }
+
+    public CloudPlatformPricingCalculatorPage chooseCommittedUsageById(UsageTerm usageTerm) throws VariantSelectionException {
         String optionId = CommittedUsageVariants.getUsageDurationOptionIdByTextValue(usageTerm.getDuration());
         waiting.waitForClickableCondition(committedUsageSelectionElement).click();
         waiting.waitForClickableConditionById(optionId).click();
+        logger.info("Commitment usage variant has been chosen");
+        return this;
+    }
+
+    public CloudPlatformPricingCalculatorPage chooseCommittedUsageByText(UsageTerm usageTerm) throws VariantSelectionException {
+        String optionId = CommittedUsageVariants.getUsageDurationOptionIdByTextValue(usageTerm.getDuration());
+        waiting.waitForClickableCondition(committedUsageSelectionElement).click();
+        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(usageTerm.getDuration())).click();
         logger.info("Commitment usage variant has been chosen");
         return this;
     }
