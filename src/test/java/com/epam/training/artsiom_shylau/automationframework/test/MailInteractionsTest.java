@@ -11,7 +11,7 @@ public class MailInteractionsTest extends CommonTestConditions {
     public void shouldGenerateEmail() {
         Email generatedEmail = new YopmailHomePage(driver)
                 .openPage()
-                .hideCookieNotification()
+                //.hideCookieNotification()
                 .generateMailAddress()
                 .copyGeneratedAddress()
                 .getGeneratedEmail();
