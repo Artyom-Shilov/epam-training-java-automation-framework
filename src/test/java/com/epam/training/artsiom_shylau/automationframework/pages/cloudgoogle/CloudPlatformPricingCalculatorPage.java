@@ -6,6 +6,7 @@ import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -131,7 +132,6 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     public CloudPlatformPricingCalculatorPage chooseInstanceTypeByVariantId(VirtualMachine machine) throws VariantSelectionException {
         MachineTypeVariants matchedVariant = MachineTypeVariants.getEnumElementByTextValue(machine.getMachineType());
         waiting.waitForClickableCondition(seriesSelectionElement).click();
-        logger.info("series selection");
         waiting.waitForClickableConditionById(matchedVariant.getSeriesOptionId()).click();
         waiting.waitForClickableCondition(machineTypeSelectionElement).click();
         waiting.waitForClickableConditionById(matchedVariant.getMachineTypeOptionId()).click();
@@ -216,7 +216,8 @@ public class CloudPlatformPricingCalculatorPage extends BasePage {
     public CloudPlatformPricingCalculatorPage chooseCommittedUsageByText(UsageTerm usageTerm) throws VariantSelectionException {
         String optionId = CommittedUsageVariants.getUsageDurationOptionIdByTextValue(usageTerm.getDuration());
         waiting.waitForClickableCondition(committedUsageSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(usageTerm.getDuration())).click();
+        driver.findElement(By.xpath(formXpathForVariantSelectionByText(usageTerm.getDuration()))).click();
+      //  waiting.waitForClickableCondition(formXpathForVariantSelectionByText(usageTerm.getDuration())).click();
         logger.info("Commitment usage variant has been chosen");
         return this;
     }
