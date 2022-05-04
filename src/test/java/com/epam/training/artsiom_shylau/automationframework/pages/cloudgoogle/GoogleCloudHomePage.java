@@ -23,7 +23,7 @@ public class GoogleCloudHomePage extends BasePage {
     private WebElement cookieNotificationOkButton;
 
     @FindBy(xpath = "//div[@id = 'suggestion-product-0']//a")
-    private WebElement firstSuggestedPage;
+    private WebElement firstSuggestedPageLink;
 
     public GoogleCloudHomePage(WebDriver driver) {
         super(driver);
@@ -50,7 +50,7 @@ public class GoogleCloudHomePage extends BasePage {
 
     public void openFirstSuggestedPageAccordingToSearchTerm(String searchTerm) {
         waiting.waitForClickableCondition(searchInputElement).sendKeys(searchTerm);
-        waiting.waitForClickableCondition(firstSuggestedPage);
+        waiting.waitForClickableCondition(firstSuggestedPageLink).click();
         logger.info("Link to the first suggested page associated with" + searchTerm + " has been clicked");
     }
 }
