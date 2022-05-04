@@ -36,8 +36,8 @@ public class CloudCalculatorTest extends CommonTestConditions {
                 .openPage()
                 //.hideCookieNotification()
                 .searchForTerm("Google Cloud Pricing Calculator")
-                //.openPageAccordingToSearchTerm();
-                .openPageAccordingToSearchTermCarefully();
+                .openPageAccordingToSearchTerm();
+                //.openPageAccordingToSearchTermCarefully();
     }
 
     private EstimatePage getEstimatePageAccordingToOptions() throws VariantSelectionException {
@@ -76,7 +76,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
         final String LETTER_TOTAL_COST_SUBSTRING_END = "\n\n* The estimated";
 
         openCalculatorPage();
-        EstimatePage estimatePage = getEstimatePageAccordingToOptions();
+        EstimatePage estimatePage = getEstimatePageAccordingToOptions().openEmailEstimationForm();
 
         GeneratedAddressPage generatedAddressPage = new YopmailHomePage(driver)
                 .openInNewTab()
@@ -85,7 +85,7 @@ public class CloudCalculatorTest extends CommonTestConditions {
 
         Email generatedEmail = generatedAddressPage.getGeneratedEmail();
 
-        estimatePage.switchToTabOfThisPage().openEmailEstimationForm().pasteEmailAndSendPriceLetter(generatedEmail);
+        estimatePage.switchToTabOfThisPage().pasteEmailAndSendPriceLetter(generatedEmail);
 
         Letter receivedLetter = generatedAddressPage
                 .switchToTabOfThisPage()
