@@ -44,7 +44,7 @@ public class GoogleCloudHomePage extends BasePage {
     public SearchPage searchForTerm(String searchTerm) {
         waiting.waitForClickableCondition(searchInputElement).sendKeys(searchTerm);
         waiting.waitForClickableCondition(allResultsButton).click();
-        logger.info("Search for term" + searchTerm + " is processing");
+        logger.info("Search for term " + searchTerm + " is processing");
         return new SearchPage(driver, searchTerm);
     }
 

@@ -1,6 +1,7 @@
 package com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle;
 
 import com.epam.training.artsiom_shylau.automationframework.model.Email;
+import com.epam.training.artsiom_shylau.automationframework.util.Scripts;
 import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,13 +81,14 @@ public class EstimatePage extends CloudPricingCalculatorPage {
     }
 
     public EstimatePage openEmailEstimationForm() {
-        waiting.waitForClickableCondition(emailEstimateButton).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, emailEstimateButton);
         logger.info("Email estimate button has been clicked");
         return this;
     }
 
     public EstimatePage pasteAddressAndSendEmail() {
         pasteAddress();
+        Scripts.moveToElement(driver, sendEmailButton);
         sendEmailButton.click();
         logger.info("Send email button has been clicked");
         return this;
@@ -94,6 +96,7 @@ public class EstimatePage extends CloudPricingCalculatorPage {
 
     public EstimatePage inputAddressAndSendEmail(Email email) {
         inputAddress(email);
+        Scripts.moveToElement(driver, sendEmailButton);
         sendEmailButton.click();
         logger.info("Send email button has been clicked");
         return this;

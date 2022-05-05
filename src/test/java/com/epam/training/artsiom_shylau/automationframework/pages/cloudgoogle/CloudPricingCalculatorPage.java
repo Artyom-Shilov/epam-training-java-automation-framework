@@ -103,67 +103,72 @@ public class CloudPricingCalculatorPage extends BasePage {
     }
 
     public CloudPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) {
-        waiting.waitForClickableCondition(operationSystemSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machine.getOperatingSystem())).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, operationSystemSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                formXpathForVariantSelectionByText(machine.getOperatingSystem()));
         logger.info("Operating system variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage chooseMachineClass(VirtualMachine machine) {
-        waiting.waitForClickableCondition(machineClassSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machine.getMachineClass())).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, machineClassSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                formXpathForVariantSelectionByText(machine.getMachineClass()));
         logger.info("Machine class variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage chooseInstanceType(VirtualMachine machine) {
-        waiting.waitForClickableCondition(seriesSelectionElement).click();
         String machineType = machine.getMachineType();
         String machineSeries = machineType.substring(0, MACHINE_SERIES_SUBSTRING_END_INDEX).toUpperCase();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machineSeries)).click();
-        waiting.waitForClickableCondition(machineTypeSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(machineType)).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, seriesSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelectionByText(machineSeries));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, machineTypeSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelectionByText(machineType));
         logger.info("Instance type variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage addGPU(GPU graphicsProcessor) {
-        waiting.waitForClickableCondition(addGPUCheckbox).click();
-        waiting.waitForClickableCondition(gpuTypeSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(graphicsProcessor.getTypeOfGPU())).click();
-        waiting.waitForClickableCondition(gpuNumberSelectionElement).click();
-        waiting.waitForClickableCondition(
-                formXpathForVariantSelectionByText(String.valueOf(graphicsProcessor.getNumberOfGPU()))).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, addGPUCheckbox);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, gpuTypeSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                formXpathForVariantSelectionByText(graphicsProcessor.getTypeOfGPU()));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, gpuNumberSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                formXpathForVariantSelectionByText(String.valueOf(graphicsProcessor.getNumberOfGPU())));
         logger.info("Type of GPU variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) {
-        waiting.waitForClickableCondition(localSSDSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(localSSD.getCapacity())).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, localSSDSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                formXpathForVariantSelectionByText(localSSD.getCapacity()));
         logger.info("Local SSD variant has been chosen");
         return this;
     }
 
 
     public CloudPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) {
-        waiting.waitForClickableCondition(datacenterLocationSelectionElement).click();
-        waiting.waitForClickableCondition(String.format(
-                BLANK_XPATH_FOR_DATACENTER_VARIANT_SELECTION_BY_TEXT, datacenter.getLocation())).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, datacenterLocationSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                String.format(BLANK_XPATH_FOR_DATACENTER_VARIANT_SELECTION_BY_TEXT, datacenter.getLocation()));
         logger.info("Datacenter variant has been chosen");
         return this;
     }
 
 
     public CloudPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) {
-        waiting.waitForClickableCondition(committedUsageSelectionElement).click();
-        waiting.waitForClickableCondition(formXpathForVariantSelectionByText(usageTerm.getDuration())).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, committedUsageSelectionElement);
+        waiting.waitForClickableConditionMoveToElementAndClick(driver,
+                formXpathForVariantSelectionByText(usageTerm.getDuration()));
         logger.info("Commitment usage variant has been chosen");
         return this;
     }
 
     public EstimatePage addToEstimate() {
-        waiting.waitForClickableCondition(addToEstimateButton).click();
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, addToEstimateButton);
         logger.info("Estimate button has been clicked");
         return new EstimatePage(driver);
     }

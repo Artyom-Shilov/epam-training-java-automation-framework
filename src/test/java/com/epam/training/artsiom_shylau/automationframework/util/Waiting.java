@@ -1,9 +1,6 @@
 package com.epam.training.artsiom_shylau.automationframework.util;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,6 +21,18 @@ public class Waiting {
 
     public WebElement waitForClickableCondition(String xpath) {
         return waitObject.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+    }
+
+    public void waitForClickableConditionMoveToElementAndClick(WebDriver driver, WebElement element) {
+        waitForClickableCondition(element);
+        Scripts.moveToElement(driver, element);
+        element.click();
+    }
+
+    public void waitForClickableConditionMoveToElementAndClick(WebDriver driver, String xpath) {
+        WebElement element = waitForClickableCondition(xpath);
+        Scripts.moveToElement(driver, element);
+        element.click();
     }
 
     public WebElement waitForVisibleCondition(WebElement element) {
