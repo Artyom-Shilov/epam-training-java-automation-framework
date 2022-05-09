@@ -12,7 +12,7 @@ public class VariantResolver {
         return Arrays.stream(variants)
                 .filter(v -> v.getVariantText().equalsIgnoreCase(variantText))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException())
+                .orElseThrow(() -> new IllegalArgumentException("variant " + variantText + " is unknown"))
                 .getVariantValue();
     }
 }

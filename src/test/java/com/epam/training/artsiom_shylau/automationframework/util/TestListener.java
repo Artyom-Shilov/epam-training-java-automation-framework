@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class TestListener implements ITestListener {
 
     private Logger logger = LogManager.getRootLogger();

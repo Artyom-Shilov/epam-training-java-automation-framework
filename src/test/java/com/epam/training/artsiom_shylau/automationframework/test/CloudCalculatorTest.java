@@ -1,7 +1,6 @@
 package com.epam.training.artsiom_shylau.automationframework.test;
 
 import com.epam.training.artsiom_shylau.automationframework.model.*;
-import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.CloudPricingCalculatorPage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.EstimatePage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.GoogleCloudHomePage;
@@ -9,8 +8,6 @@ import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.Genera
 import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.YopmailHomePage;
 import com.epam.training.artsiom_shylau.automationframework.service.*;
 import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
-import com.fasterxml.jackson.databind.ser.Serializers;
-import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,7 +33,6 @@ public class CloudCalculatorTest extends CommonTestConditions {
     private void openCalculatorPage() {
         new GoogleCloudHomePage(driver)
                 .openPage()
-               // .hideCookieNotification()
                 .openFirstSuggestedPageAccordingToSearchTerm("Google Cloud Pricing Calculator");
     }
 
@@ -97,62 +93,6 @@ public class CloudCalculatorTest extends CommonTestConditions {
     }
 
     @Test
-    public void shouldThrowExceptionForPriceCalculationWhenOperationSystemOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseOperatingSystem(virtualMachine));
-    }
-
-    @Test
-    public void shouldThrowExceptionForPriceCalculationWhenDatacenterLocationOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseDatacenterLocation(datacenter));
-    }
-
-    @Test
-    public void shouldThrowExceptionForPriceCalculationWhenGPUTypeOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.addGPU(graphicProcessor));
-    }
-
-    @Test
-    public void shouldThrowExceptionForPriceCalculationWhenLocalSSDOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseLocalSSD(localSSD));
-    }
-
-    @Test
-    public void shouldThrowExceptionForPriceCalculationWhenInstanceTypeOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseInstanceType(virtualMachine));
-    }
-
-    @Test
-    public void shouldThrowExceptionForPriceCalculationWhenMachineClassOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseMachineClass(virtualMachine));
-    }
-
-    @Test
-    public void shouldThrowExceptionForPriceCalculationWhenUsageDurationOptionIsUnknown() {
-        openCalculatorPage();
-        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
-        calculatorPage.activateComputeEngineSection();
-        Assert.assertThrows(TimeoutException.class, () -> calculatorPage.chooseCommittedUsage(usageTerm));
-    }
-
-    @Test
     public void shouldNotBeAbleToCalculatePriceWhenNumberOfInstancesIsNotPositive() {
         openCalculatorPage();
         boolean isAbleToCalculate = new CloudPricingCalculatorPage(driver)
@@ -202,5 +142,61 @@ public class CloudCalculatorTest extends CommonTestConditions {
         boolean isAbleToSendEmail = estimatePage.switchToTabOfThisPage().pasteAddress().isPossibleToSendEmail();
 
         Assert.assertTrue(isAbleToSendEmail);
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenOperationSystemOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.chooseOperatingSystem(virtualMachine));
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenDatacenterLocationOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.chooseDatacenterLocation(datacenter));
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenGPUTypeOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.addGPU(graphicProcessor));
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenLocalSSDOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.chooseLocalSSD(localSSD));
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenInstanceTypeOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.chooseInstanceType(virtualMachine));
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenMachineClassOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.chooseMachineClass(virtualMachine));
+    }
+
+    @Test
+    public void shouldThrowExceptionForPriceCalculationWhenUsageDurationOptionIsUnknown() {
+        openCalculatorPage();
+        CloudPricingCalculatorPage calculatorPage = new CloudPricingCalculatorPage(driver);
+        calculatorPage.activateComputeEngineSection();
+        Assert.assertThrows(IllegalArgumentException.class, () -> calculatorPage.chooseCommittedUsage(usageTerm));
     }
 }

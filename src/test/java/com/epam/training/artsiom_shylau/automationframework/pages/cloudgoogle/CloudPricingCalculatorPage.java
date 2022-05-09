@@ -5,11 +5,9 @@ import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.epam.training.artsiom_shylau.automationframework.util.VariantResolver.*;
 
@@ -77,9 +75,6 @@ public class CloudPricingCalculatorPage extends BasePage {
     private static final String BLANK_XPATH_FOR_VARIANT_SELECTION_BY_VALUE =
             "//div[contains(@class, 'md-active') and contains(@class, 'md-clickable')]//md-option[@value = '%s']";
 
-    private static final String BLANK_XPATH_FOR_VARIANT_SELECTION_BY_TEXT =
-            "//div[contains(@class, 'md-active')]//div[contains(text(), '%s')]";
-
     public CloudPricingCalculatorPage(WebDriver driver) {
         super(driver);
     }
@@ -104,7 +99,8 @@ public class CloudPricingCalculatorPage extends BasePage {
     }
 
     public CloudPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) {
-        String variantValue = getVariantValueByVariantText(OperatingSystemVariants.values(), machine.getOperatingSystem());
+        String variantValue = getVariantValueByVariantText(
+                OperatingSystemVariants.values(), machine.getOperatingSystem());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, operationSystemSelectionElement);
         waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelection(variantValue));
         logger.info("Operating system variant has been chosen");

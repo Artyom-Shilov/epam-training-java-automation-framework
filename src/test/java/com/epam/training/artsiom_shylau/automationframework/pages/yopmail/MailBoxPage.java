@@ -14,7 +14,7 @@ public class MailBoxPage extends BasePage {
 
     private final Logger logger = LogManager.getRootLogger();
 
-    private static final int MAIL_NUMBER_VALUE_INDEX = 0;
+    private static final int MAIL_NUMBER_INDEX = 0;
 
     @FindBy(xpath = "//*[@id='mail']/pre")
     private WebElement currentLetterTextElement;
@@ -46,7 +46,7 @@ public class MailBoxPage extends BasePage {
                 (ExpectedCondition<Boolean>) driver -> {
                     refreshButton.click();
                     logger.info("Refresh mail box button has been clicked");
-                    return Integer.parseInt(numberOfMailsElement.getText().split(" ")[MAIL_NUMBER_VALUE_INDEX]) > 0;
+                    return Integer.parseInt(numberOfMailsElement.getText().split(" ")[MAIL_NUMBER_INDEX]) > 0;
                 });
         logger.info("Letter has been received");
         return this;
