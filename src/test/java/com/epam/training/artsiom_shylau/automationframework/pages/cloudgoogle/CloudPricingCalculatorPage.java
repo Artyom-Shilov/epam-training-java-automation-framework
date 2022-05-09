@@ -1,12 +1,17 @@
 package com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle;
 
+import com.epam.training.artsiom_shylau.automationframework.enums.*;
 import com.epam.training.artsiom_shylau.automationframework.model.*;
 import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static com.epam.training.artsiom_shylau.automationframework.util.VariantResolver.*;
 
 public class CloudPricingCalculatorPage extends BasePage {
 
@@ -69,22 +74,18 @@ public class CloudPricingCalculatorPage extends BasePage {
             "//button[@ng-click = 'listingCtrl.addComputeServer(ComputeEngineForm);']")
     private WebElement addToEstimateButton;
 
-    private final String blankXpathForGPUNumberVariant = "//md-option[@ng-disabled = 'item.value != 0 " +
-            "&& item.value < listingCtrl.minGPU' and @value = '%s']";
+    private static final String BLANK_XPATH_FOR_VARIANT_SELECTION_BY_VALUE =
+            "//div[contains(@class, 'md-active') and contains(@class, 'md-clickable')]//md-option[@value = '%s']";
 
     private static final String BLANK_XPATH_FOR_VARIANT_SELECTION_BY_TEXT =
-            "//div[@class = 'md-select-menu-container md-active md-clickable']//div[contains(text(), '%s')]";
-
-    private static final String BLANK_XPATH_FOR_DATACENTER_VARIANT_SELECTION_BY_TEXT =
-            "//div[@class = 'md-select-menu-container cpc-region-select md-active md-clickable']" +
-                    "//div[contains(text(), '%s')]";
+            "//div[contains(@class, 'md-active')]//div[contains(text(), '%s')]";
 
     public CloudPricingCalculatorPage(WebDriver driver) {
         super(driver);
     }
 
-    private String formXpathForVariantSelectionByText(String variantText) {
-        return String.format(BLANK_XPATH_FOR_VARIANT_SELECTION_BY_TEXT, variantText);
+    private String formXpathForVariantSelection(String variantText) {
+        return String.format(BLANK_XPATH_FOR_VARIANT_SELECTION_BY_VALUE, variantText);
     }
 
     public CloudPricingCalculatorPage activateComputeEngineSection() {
@@ -103,66 +104,72 @@ public class CloudPricingCalculatorPage extends BasePage {
     }
 
     public CloudPricingCalculatorPage chooseOperatingSystem(VirtualMachine machine) {
+        String variantValue = getVariantValueByVariantText(OperatingSystemVariants.values(), machine.getOperatingSystem());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, operationSystemSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                formXpathForVariantSelectionByText(machine.getOperatingSystem()));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelection(variantValue));
         logger.info("Operating system variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage chooseMachineClass(VirtualMachine machine) {
+        String variantValue = getVariantValueByVariantText(MachineClassVariants.values(), machine.getMachineClass());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, machineClassSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                formXpathForVariantSelectionByText(machine.getMachineClass()));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelection(variantValue));
         logger.info("Machine class variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage chooseInstanceType(VirtualMachine machine) {
         String machineType = machine.getMachineType();
-        String machineSeries = machineType.substring(0, MACHINE_SERIES_SUBSTRING_END_INDEX).toUpperCase();
+        String machineTypeVariantValue = getVariantValueByVariantText(MachineTypeVariants.values(), machineType);
+        String machineSeriesVariantValue = getVariantValueByVariantText(
+                MachineSeriesVariants.values(), machineType.substring(0, MACHINE_SERIES_SUBSTRING_END_INDEX));
         waiting.waitForClickableConditionMoveToElementAndClick(driver, seriesSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelectionByText(machineSeries));
+        waiting.waitForClickableConditionMoveToElementAndClick(
+                driver, formXpathForVariantSelection(machineSeriesVariantValue));
         waiting.waitForClickableConditionMoveToElementAndClick(driver, machineTypeSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelectionByText(machineType));
+        waiting.waitForClickableConditionMoveToElementAndClick(
+                driver, formXpathForVariantSelection(machineTypeVariantValue));
         logger.info("Instance type variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage addGPU(GPU graphicsProcessor) {
         waiting.waitForClickableConditionMoveToElementAndClick(driver, addGPUCheckbox);
+        String typeOfGPUVariantValue = getVariantValueByVariantText(
+                GPUVariants.values(), graphicsProcessor.getTypeOfGPU());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, gpuTypeSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                formXpathForVariantSelectionByText(graphicsProcessor.getTypeOfGPU()));
+        waiting.waitForClickableConditionMoveToElementAndClick(
+                driver, formXpathForVariantSelection(typeOfGPUVariantValue));
         waiting.waitForClickableConditionMoveToElementAndClick(driver, gpuNumberSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                formXpathForVariantSelectionByText(String.valueOf(graphicsProcessor.getNumberOfGPU())));
+        waiting.waitForClickableConditionMoveToElementAndClick(
+                driver, formXpathForVariantSelection(String.valueOf(graphicsProcessor.getNumberOfGPU())));
         logger.info("Type of GPU variant has been chosen");
         return this;
     }
 
     public CloudPricingCalculatorPage chooseLocalSSD(LocalSSD localSSD) {
+        String variantValue = getVariantValueByVariantText(LocalSSDVariants.values(), localSSD.getCapacity());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, localSSDSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                formXpathForVariantSelectionByText(localSSD.getCapacity()));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelection(variantValue));
         logger.info("Local SSD variant has been chosen");
         return this;
     }
 
 
     public CloudPricingCalculatorPage chooseDatacenterLocation(Datacenter datacenter) {
+        String variantValue = getVariantValueByVariantText(DatacenterVariants.values(), datacenter.getLocation());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, datacenterLocationSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                String.format(BLANK_XPATH_FOR_DATACENTER_VARIANT_SELECTION_BY_TEXT, datacenter.getLocation()));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelection(variantValue));
         logger.info("Datacenter variant has been chosen");
         return this;
     }
 
 
     public CloudPricingCalculatorPage chooseCommittedUsage(UsageTerm usageTerm) {
+        String variantValue = getVariantValueByVariantText(CommittedUsageVariants.values(), usageTerm.getDuration());
         waiting.waitForClickableConditionMoveToElementAndClick(driver, committedUsageSelectionElement);
-        waiting.waitForClickableConditionMoveToElementAndClick(driver,
-                formXpathForVariantSelectionByText(usageTerm.getDuration()));
+        waiting.waitForClickableConditionMoveToElementAndClick(driver, formXpathForVariantSelection(variantValue));
         logger.info("Commitment usage variant has been chosen");
         return this;
     }

@@ -20,12 +20,12 @@ public class BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public BasePage switchToTabOfPage(BasePage page) {
+    protected BasePage switchToTabOfPage(BasePage page) {
         driver.switchTo().window(page.windowHandle);
         return page;
     }
 
-    public BasePage switchToTabOfThisPage(){
+    protected BasePage switchToTabOfThisPage(){
         driver.switchTo().window(windowHandle);
         return this;
     }

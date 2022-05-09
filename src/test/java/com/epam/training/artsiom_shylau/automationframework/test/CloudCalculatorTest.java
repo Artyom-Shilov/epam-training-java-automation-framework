@@ -1,6 +1,7 @@
 package com.epam.training.artsiom_shylau.automationframework.test;
 
 import com.epam.training.artsiom_shylau.automationframework.model.*;
+import com.epam.training.artsiom_shylau.automationframework.pages.BasePage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.CloudPricingCalculatorPage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.EstimatePage;
 import com.epam.training.artsiom_shylau.automationframework.pages.cloudgoogle.GoogleCloudHomePage;
@@ -8,6 +9,7 @@ import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.Genera
 import com.epam.training.artsiom_shylau.automationframework.pages.yopmail.YopmailHomePage;
 import com.epam.training.artsiom_shylau.automationframework.service.*;
 import com.epam.training.artsiom_shylau.automationframework.util.StringOperations;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
